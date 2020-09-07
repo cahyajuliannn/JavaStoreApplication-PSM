@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html layout:decorate="~{base}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+
+<section class="content-header" layout:fragment="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+<!-- 				<h1>Profile</h1> -->
+			</div>
+			<div class="col-sm-6">
+				<ol class="breadcrumb float-sm-right">
+					<li class="breadcrumb-item"><a href="/pilihcabang">Pilih Cabang</a></li>
+<!-- 					<li class="breadcrumb-item active"><a href="/toko"></a></li> -->
+				</ol>
+
+
+
+			</div>
+		</div>
+	</div>
+	<!-- /.container-fluid -->
+</section>
+
+
+<section class="content" layout:fragment="content-body">
+
+
+
+
+<!-- <div class="row"> -->
+<!-- 		<div class="col-md-4"> -->
+<!-- 			<div class="info-box mb-3"> -->
+<!-- 				<span class="info-box-icon bg-warning elevation-1"> -->
+<!-- 				<i class="fas fa-box"></i></span> -->
+
+<!-- 				<div class="info-box-content"> -->
+<!-- 					<span class="info-box-text">Stok Barang</span>  -->
+<!-- 					<button id="klikModalStok" type="button" class="btn btn-sm btn-default">Rincian</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="col-md-4"> -->
+<!-- 			<div class="info-box mb-3"> -->
+<!-- 				<span class="info-box-icon bg-success elevation-1"><i -->
+<!-- 					class="fas fa-home"></i></span> -->
+<!-- 				<div class="info-box-content"> -->
+<!-- 					<span class="info-box-text">Toko Utama</span> <a href="tokocabang" -->
+<!-- 						class="small-box-footer"> -->
+<!-- 						<button type="button" class="btn btn-sm btn-default">More info</button></a> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+
+<!-- 		</div> -->
+
+<!-- 		<div class="col-md-4"> -->
+<!-- 			<div class="info-box mb-3"> -->
+<!-- 				<span class="info-box-icon bg-danger elevation-1"><i -->
+<!-- 					class="fas fa-arrow-circle-right"></i></span> -->
+<!-- 				<div class="info-box-content"> -->
+<!-- 					<span class="info-box-text">Kembali</span> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+
+<!-- 		</div> -->
+
+
+<!-- 	</div> -->
+	
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title">Informasi Cabang</h3>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body">
+
+						<div class="row">
+							<div class=col-md-4>
+								<strong><i class="fas fa-store-alt"></i> Nama Cabang :
+								</strong>
+								<hr>
+								<strong><i class="fas fa-map-marker-alt mr-1"></i>
+									Alamat Cabang :</strong>
+								<hr>
+								<strong><i class="fas fa-map-marked-alt"></i>  Kota/Kabupaten
+									: </strong>
+								<hr>
+								<strong><i class="fas fa-calendar-alt"></i> Tanggal
+									Berdiri : </strong>
+								<hr>
+								<strong><i class="fas fa-clock"></i>  Jam Buka : </strong>
+								<hr>
+								<strong><i class="fas fa-clock"></i>  Jam Tutup : </strong>
+								<hr>
+								<strong><i class="fas fa-check"></i> Status : </strong>
+								<hr>
+							</div>
+							<div class="col-md-8">
+								<p class="text" id="namaCabangAkses"></p>
+								<hr>
+
+								<p class="text" id="alamatCabangAkses"></p>
+								<hr>
+
+								<p class="text" id="kotaCabangAkses"></p>
+								<hr>
+								
+								<p class="text" id="tanggalCabangAkses"></p>
+								<hr>
+								
+								<p class="text" id="bukaCabangAkses"></p>
+								<hr>
+								
+								<p class="text" id="tutupCabangAkses"></p>
+								<hr>
+								
+								<p class="text" id="statusCabangAkses"></p>
+								<hr>
+
+							</div>
+						</div>
+						
+						<button id="klikModalStok" type="button" class="btn btn-info"><i class="fas fa-tag"></i>   Lihat Stok Barang</button>
+					</div>
+					<!-- /.card-body -->
+
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- 	MODAL TABEL STOK BY CABANG -->
+	<div class="modal fade" id="modal-stok">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Data Stok Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                     <div class="card-header">
+						<h5>Total Jumlah Stok Barang:</h5><h5 id="countStok"></h5>
+                     </div> 
+                    <div class="card-body table-responsive">
+                		<table class="table table-striped table-bordered table-hover nowrap" id="tableStok"
+                       		style="width:100%"></table>
+            		</div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+<!--                     <a href="/barang"><button type="button" class="btn btn-primary">Kelola Barang</button></a> -->
+<!--                     <button type="button" class="btn btn-success" id="btn-add-item"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Barang</button> -->
+                </div>
+            </div>
+<!--             /.modal-content -->
+        </div>
+<!--         /.modal-dialog -->
+    </div>
+	
+</section>
+
+
+
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/tampilcabang.js}"></script>
+
+	<script>
+// 	tampil.tampilan("CB-1")
+		const qs = window.location.search;
+        const urlParams = new URLSearchParams(qs);
+        const param1 = urlParams.get('idCabang');
+        const param2 = urlParams.get('namaCabang');
+		tampil.cabang(param1);
+	
+	
+	
+	
+	 $("#klikModalStok").click(function () {
+		 tableStok.hitungStok(param1);
+		 tableStok.tampil(param1);	 
+        });
+	
+	</script>
+
+</th:block>
+
+</html>
+

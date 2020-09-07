@@ -1,0 +1,426 @@
+ <!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Kategori Barang</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="kategori">Kategori Barang</a></li>
+            <li class="breadcrumb-item active">index</li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="row" layout:fragment="content-body">
+<section>
+    <div class="col-md-12">
+        <div class="card card-info card-outline">
+        	<img th:src="@{/assets/dist/img/kategorii.png}" class="img-fluid">
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Kategori Barang</h3>
+                <button class="float-right btn btn-success" id="btn-tambah-kategori"><i class="fas fa-plus"></i>&nbsp;&nbsp;Kategori & Barang</button>                
+            </div>           
+        </div>
+    </div>
+    <!-- /.col -->
+
+          
+<!-- Modal kBarang SAVE/POST --0-->
+	<div class="modal fade" id="modal-barang"  data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Barang & Kategorinya</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--                 Card Kategori dan Detail Barang -->
+			<div class="modal-body">
+			   <div class="container mt-3">				 
+				  <div id="accordion">
+				    <div class="card">
+				      <div class="card-header">
+				        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+				          Informasi
+				        </a>
+				      </div>
+				      <div id="collapseOne" class="collapse show" data-parent="#accordion">
+				        <div class="card-body">
+				  		<p><strong>Note:</strong> halaman ini berupa <strong>Pop Up</strong> yang berisi informasi dan form penambahan kategori barang dan barang </p>				        </div>
+				      </div>
+				    </div>
+				    <div class="card">
+				      <div class="card-header">
+				        <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+				         Kategori Barang
+				      </a>
+				      </div>
+				      <div id="collapseTwo" class="collapse" data-parent="#accordion">
+ <!--     MENAMPILKAN TABEL KATEGORI -->
+		 				<div class="card-body">
+							 <div class="col-12">
+				                 <div class="card">
+				        			<div class="card-header">
+				        				<h3 class="card-title">Kategori Barang</h3>
+				<!--         				<ol class="breadcrumb float-sm-right"> -->
+				<!-- 				            <li class="breadcrumb-item"><a href="barang">Edit Barang</a></li> -->
+				<!-- 				        </ol> -->
+				        					<div class="card-body table-responsive">
+				                				<table class="table table-striped table-bordered table-hover nowrap" id="tableKategori" style="width:100%"></table>
+				            				</div>
+				            		</div>
+				            	</div>
+				            </div>
+		            	</div>
+				      </div>
+				    </div>
+				    <div class="card">
+				      <div class="card-header">
+				        <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+				          Detail Barang
+				        </a>
+				      </div>
+				      <div id="collapseThree" class="collapse" data-parent="#accordion">
+				        <div class="card-body">
+ <!--         MENAMPILKAN TABLE BARANG -->
+					 		<div class="col-12">
+								 <div class="card">
+					            		<div class="card-header">
+					               			<h3 class="card-title">Detail Barang</h3>               			
+									        <ol class="breadcrumb float-sm-right">
+									            <li class="breadcrumb-item"><a href="barang">Edit Barang</a></li>
+									        </ol>
+					            			<div class="card-body table-responsive">
+					                			<table class="table table-striped table-bordered table-hover nowrap" id="tableBarang" style="width:100%"></table>
+					            			</div>
+					<!--             /.card-body -->
+					       		 		</div>
+					        		</div>
+					        </div>   
+					   	</div>
+				      </div>
+				    </div>
+				    				    <div class="card">
+				      <div class="card-header">
+				        <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+				          Tambah Barang
+				        </a>
+				      </div>
+				      <div id="collapseFour" class="collapse" data-parent="#accordion">
+				        <div class="card-body">
+ <!--         MENAMPILKAN TABLE BARANG -->
+					 		<div class="col-12">
+								 <div class="card">
+					            		<div class="card-header">
+					               			              <div class="card card-info card-outline">
+                <div class="card-body">
+                    <form id="form-kategori" role="form">
+                        <input name="idKategori" type="hidden"/>
+                       	<div class="form-group">
+                            <label>Kategori Barang : </label>
+                         <input class="form-control" id="namaK" name="namaKategori" placeholder="Nama Kategori Barang" required type="text">
+                        </div>  
+                    </form>
+                </div>
+                <div class="card-footer">
+        				<div class="text-center">
+                    		<button class="btn btn-block btn-success toastrDefaultSuccess" id="btn-save-kategori" type="button">Save Kategori</button>
+                 		</div>
+                </div>
+        			<div class="modal-body">
+        			
+	        			 <form id="form-barang" role="form">
+                        	<input name="idBarang" type="hidden"/>
+                        	<input name="idKategori" type="hidden"/>
+                        	<input name="distID" type="hidden"/>
+
+		                        <div class="form-group">                        
+		                            <label>Nama Barang : </label>
+		                            	<input class="form-control" id="namaBarang" name="namaBarang"
+		                                   placeholder="Nama Barang" required type="text">
+		                        </div>
+		                        <div class="form-group">
+		                            <label>Nama Distributor : </label>
+		                             <select class="form-control select2" style="width: 100%;" id="namaPT" name="namaPT" required>
+		                               <option value="0"  selected hidden> -- Pilih Distributor -- </option>
+		                             </select>									
+		                     	</div>
+		                        <div class="form-group">
+		                            <label>Nama Kategori : </label>
+		                            <select class="form-control select2" style="width: 100%;" id="namaKategori" name="namaKategori" required>
+		                               <option value="0" selected hidden > -- Pilih Kategori -- </option>
+		                             </select>
+		                         </div>		                       
+								<div class="card">
+							<button id="ok"  class="btn btn-block btn-success" type="button">Submit</button>
+					
+						</div> 
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+							
+								<div class="card-header">
+									<h3 class = "card-title">Tabel Barang</h3>
+									<div class="card-tools">
+					                  <div class="input-group input-group-sm" style="width: 150px;">
+					                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+					
+					                    <div class="input-group-append">
+					                      <button class="btn btn-default"><i class="fas fa-search"></i></button>
+					                    </div>
+					                  </div>
+					                </div>
+									</div>
+										<div class="card-body table-responsive p-0" style="height: 300px;">
+											<table id="tableSementara" class="table table-head-fixed">
+												<thead>
+												<tr>
+													<th >Nama Barang</th>
+													<th >Nama Kategori</th>
+													<th >Nama Distributor</th>
+													<th>Action</th>
+												</tr>
+												</thead>
+												<tbody id="tabel"></tbody>
+											</table>		
+										</div>
+									<br>
+									
+								</div>	
+							</div>
+					
+					</div>  
+                    		</form>
+        			</div>
+        			<div class="modal-footer justify-content-between">
+        			<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>        			
+                    <button class="btn btn-success toastrDefaultSuccess" id="btn-save-barang" type="button" disabled>Save</button>
+                    
+
+        			</div>
+<!--         		</div> -->
+        								
+
+          	</div>
+            <!-- /.modal-content -->
+					       		 		</div>
+					        		</div>
+					        </div>   
+					   	</div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+
+
+        </div>
+    </div>
+    </div>
+    </div>
+             
+
+<!-- Modal UPDATE KATEGORI Barang -->
+       <div class="modal fade" id="modal-kategori2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ubah Kategori Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-kategori2" role="form">
+                        <input name="idKategori"  type="hidden"/>
+<!--                         <input name="idKategori" id = "kodeUniq" value="1" type="hidden"/> -->
+<!--                         <input name="distID" id="kodeUniq2" value="1" type="hidden" /> -->
+              
+
+                        <div class="form-group">                        
+		                            <label>Nama Kategori : </label>
+		                            	<input class="form-control" id="namaK2" name="namaKategori"
+		                                   placeholder="Nama Kategori" required type="text">
+		                        </div>		                        	     
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-edit-kategori" type="button">Update</button>
+                 
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
+    <!-- 	modal tabel Variant -->
+	<div class="modal fade" id="modal-variant">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Data Variant</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                      <div class="card-header"> -->
+
+<!--                      </div>  -->
+                    <div class="card-body table-responsive">
+                		<table class="table table-striped table-bordered table-hover nowrap" id="tableVariant"
+                       		style="width:100%"></table>
+            		</div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <a href="/variant"><button type="button" class="btn btn-primary">Edit Variant</button></a>
+<!--                     <button type="button" class="btn btn-success" id="btn-add-item"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Barang</button> -->
+                </div>
+            </div>
+<!--             /.modal-content -->
+        </div>
+<!--         /.modal-dialog -->
+    </div>
+    </section>
+</div>
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/newKategoriBarang.js}"></script>
+
+    <script>
+	selopDistributor.getAllDistributor();
+	selopKategori.getAllKategori();
+	$(".select2").select2();
+    tableKategori.create();
+    tableBarang.create();
+    $('#btn-save-kategori').click(function () {    
+        formKategori.saveForm();
+    });
+        $('#btn-tambah-kategori').click(function () {
+        	nomorRow = 0;	
+			kategori=[];
+            formBarang.resetForm();
+            $('#btn-save-barang').removeAttr('disabled');
+            $('#modal-barang').modal('show')
+        });
+
+//         $('#btn-edit-barang').click(function () {
+//             formBarang.editForm(idBarang);
+         
+//         });
+//         $('#btn-delete').click(function () {
+//             formBarang.deleteData(idBarang);
+//         });
+
+
+	$("#ok").click(function() {
+        $('#btn-save-barang').removeAttr('disabled');
+						if ($('#form-barang').parsley().validate()) {
+							var dataResult = getJsonForm($("#form-barang").serializeArray(), true);
+							
+
+							
+							var namaBarang = $("#namaBarang").val();
+							var namaDistributor = $("#namaPT").val();
+							var namaKategori = $("#namaKategori").val();
+							
+							var idnya = $("#idUniq").val();
+							
+							var table = "<tr class = 'rowB' id ='tr"+nomorRow+"'><td class = 'namaBarang'>"
+									+ namaBarang
+									+ "</td><td class = 'namaDistributor'>"
+									+ namaDistributor
+									+  "</td><td class = 'namaKategori'>"
+									+ namaKategori
+									+ "</td><td><span class='edited'><a data-toggle='tooltip' title='Edit' class='fa fa-edit' style='font-size:18px;color:blue;' href='javascript: void(0);'></a></span>&nbsp&nbsp<td><span class='deleted'><a data-toggle='tooltip' title='Delete!' class='fa fa-trash' style='font-size:18px;color:red;' href='javascript: void(0);'></a></span></td></tr>";
+									
+									var aa = document.getElementById("namaPT");
+									var id = aa.options[aa.selectedIndex].id
+									var bb = document.getElementById("namaKategori");
+									var id2 = bb.options[bb.selectedIndex].id
+									
+							var isi = {
+								"namaBarang" : namaBarang,
+								"distributor": {
+									"distID" : id
+								},								
+								"kategoriBarang" : {
+									"idKategori": id2
+								}
+							};
+							
+							
+						}
+						kategori.push(isi);
+						console.log(isi);
+						if (row) {
+							 $("#tableSementara").find($(row)).replaceWith(table);
+                             row = null;
+                            }
+                            else{
+                            $("#tableSementara").append(table);
+                            }
+						 $("#namaBarang").val('');
+	            			$("#namaPT").val('0').trigger('change')
+                         $("#namaPT").val('');
+	            			$("#namaKategori").val('0').trigger('change')
+                         $("#namaKategori").val('');
+                         
+                         $('#form-barang')[0].reset();
+	            		$('#form-barang').parsley().reset();
+	            			nomorRow++;
+					});
+	//		Save data ke database
+	$('#btn-save-barang').click(function() {
+		$("#tabel").empty();
+		formBarang.saveAll(); 
+		kategori = [];
+		formBarang.resetForm();
+	});
+	//edit data pada table sementara
+	 $("#tableSementara").on('click', ".edited", function() {
+		 row = $(this).parents('tr');
+			$("#namaBarang").val($(this).closest('tr').find('td.namaBarang').text());
+			$("#namaPT").val($(this).closest('tr').find('td.namaDistributor').text());
+			$("#namaKategori").val($(this).closest('tr').find('td.namaKategori').text());
+			
+			kategori.splice(row.index(), 1);
+			toastr.info("Silakan Edit Data yang Anda Pilih");
+			$('#btn-save-barang').prop('disabled', true);
+		
+		});
+	
+	// 		hapus data di tabel sementara
+	$("#tableSementara").on("click", '.deleted', (function() {
+		deleteRow = $(this).closest('tr').remove();
+		kategori.splice(deleteRow.index(), 1);
+		deleteRow.remove();
+
+		newRow = $('#tabelSementara').find('.rowB').length;
+		if (newRow < 1) {
+			$('#btn-save-barang').prop('disabled');
+		} else {
+			$('#btn-save-barang').removeAttr('disabled');
+		}
+	}));
+
+    </script>
+</th:block>
+
+</html>
+
+

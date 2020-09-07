@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Distributor Barang</h1>
+    </div>
+    <div class="col-sm-6">
+<!--         <ol class="breadcrumb float-sm-right"> -->
+<!--             <li class="breadcrumb-item"><a href="#">Distributor</a></li> -->
+<!--             <li class="breadcrumb-item active">Kelola</li> -->
+<!--         </ol> -->
+    </div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+<!--                 <h3 class="card-title" hidden>Daftar Distributor Barang</h3> -->
+<!--                 <button hidden class="float-right btn btn-success" id="btn-tambah-distrib"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Distributor</button> -->
+<!--                 <button class="float-right btn btn-primary" id="btn-tambah-kota">Tambah Kota/Kab</button> -->
+             <p>Filter Pencarian</p>
+             <div class="row "> <!-- justify-content-center -->
+                <div class="input-group col-md-8"> <!-- offset-md-3 -->
+                  <input type="text" class="form-control" id="nameF" placeholder="Nama Distributor">
+                  <input type="text" class="form-control" id="addressF" placeholder="Alamat">
+                  <input type="text" class="form-control" id="npwpF" placeholder="NPWP">
+                  <span class="input-group-append">
+                    <button type="button" class="btn btn-info btn-flat" onclick="tableDistrib.createByFilters()">Cari</button>
+                  </span>
+                </div>
+                <button class="float-right btn btn-primary" onclick="tableDistrib.create()">Reset</button>
+            	 <div class="col">
+            	 <button class="float-right btn btn-success" id="btn-tambah-distrib"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Distributor</button>
+            	</div>
+            </div> <!-- row -->
+            
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableDistrib"
+                       style="width:100%"></table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+
+<!-- Modal biodata SAVE/POST -->
+    <div class="modal fade" id="modal-distrib">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Distributor</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+
+<!--                     </div> -->
+<!--                     <form id="form-distrib" role="form"> -->
+<!--                         <input name="id" type="hidden"/> -->
+<!--                         		<div class="form-group"> -->
+<!-- 									<label>Nama Perusahaan</label>  -->
+<!-- 									<input required type="text" class="form-control" id="name" name="namaPT" -->
+<!-- 										placeholder="Masukkan nama perusahaan"> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>Alamat</label> <input -->
+<!-- 										required type="text" class="form-control" id="address" name="alamatPT" -->
+<!-- 										placeholder="Masukkan alamat"> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>NPWP</label>  -->
+<!-- 									<div class="input-group"> -->
+<!-- 					                    <input required type="text" class="form-control" id="npwpID" name="npwpPT"  -->
+<!-- 					                    placeholder="__.___.___._-___.___"> -->
+<!-- 					                  </div> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>Bank</label>  -->
+<!-- 										<select required class="form-control select2" style="width: 100%;" id="selectBank" name="namaBank"> -->
+<!-- 										<option value="0" selected hidden> -- Pilih Nama Bank -- </option> -->
+<!-- 									</select> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>No. Rekening</label> <input -->
+<!-- 										required type="number" class="form-control" id="noacc" name="noRekening" -->
+<!-- 										placeholder="Masukkan no. rekening"> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>Atas Nama</label> <input -->
+<!-- 										required type="text" class="form-control" id="holder" name="atasNama" -->
+<!-- 										placeholder="Masukkan atas nama dari no. rekening"> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>No. Telepon</label> <input -->
+<!-- 										required type="number" class="form-control" id="phone" name="noTelpPT" -->
+<!-- 										placeholder="Masukkan nomor telepon"> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-group"> -->
+<!-- 									<label>Email</label> <input -->
+<!-- 										required type="email" class="form-control" id="email" name="emailPT" -->
+<!-- 										placeholder="Masukkan email"> -->
+<!-- 								</div> -->
+								
+<!--                     </form> -->
+                    
+                        <form id="form-distrib" role="form">
+                        <input name="id" type="hidden"/>
+                        	<div class="row">
+                        	<div class="col">
+								<div class="form-group">
+									<label>Nama Perusahaan<font color="red"> *</font></label> 
+									<input required type="text" class="form-control" id="name" name="namaPT"
+										placeholder="Masukkan nama perusahaan">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Alamat<font color="red"> *</font></label> <input
+										required type="text" class="form-control" id="address" name="alamatPT"
+										placeholder="Masukkan alamat">
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label>NPWP<font color="red"> *</font></label> 
+									<div class="input-group">
+					                    <input required type="text" class="form-control" id="npwpID" name="npwpPT" 
+					                    placeholder="__.___.___._-___.___">
+					                  </div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Bank<font color="red"> *</font></label> 
+										<select required class="form-control select2" style="width: 100%;" id="selectBank">
+										<option value="" selected disabled> -- Pilih Nama Bank -- </option>
+									</select>
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label>No. Rekening<font color="red"> *</font></label> <input
+										required type="number" class="form-control" id="noacc" name="noRekening"
+										placeholder="Masukkan no. rekening">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Atas Nama<font color="red"> *</font></label> <input
+										required type="text" class="form-control" id="holder" name="atasNama"
+										placeholder="Masukkan atas nama dari no. rekening">
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label>No. Telepon<font color="red"> *</font></label> <input
+										required type="number" class="form-control" id="phone" name="noTelpPT"
+										placeholder="Masukkan nomor telepon">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Email<font color="red"> *</font></label> <input
+										required type="email" class="form-control" id="email" name="emailPT"
+										placeholder="Masukkan email">
+								</div>	
+							</div>
+							</div>							
+                    </form>
+                    
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-success toastrDefaultSuccess" id="btn-save-distrib" type="button">Save</button>
+<!--                     <button class="btn btn-primary" id="btn-edit-distrib" type="button">Update</button> -->
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+<!-- Modal biodata UPDATE/EDIT -->
+    <div class="modal fade" id="modal-distrib2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ubah Data Distributor</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+
+<!--                     </div> -->
+                    <form id="form-distrib2" role="form">
+                        <input name="id" type="hidden"/>
+                        	<div class="row">
+                        	<div class="col">
+								<div class="form-group">
+									<label>Nama Perusahaan<font color="red"> *</font></label> 
+									<input required type="text" class="form-control" id="name2" name="namaPT"
+										placeholder="Masukkan nama perusahaan">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Alamat<font color="red"> *</font></label> <input
+										required type="text" class="form-control" id="address2" name="alamatPT"
+										placeholder="Masukkan alamat">
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label>NPWP<font color="red"> *</font></label> 
+									<div class="input-group">
+					                    <input required type="text" class="form-control" id="npwpID2" name="npwpPT" 
+					                    placeholder="__.___.___._-___.___">
+					                  </div>
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Bank<font color="red"> *</font></label> 
+										<select required class="form-control select2" style="width: 100%;" id="selectBank2">
+										<option value="" selected disabled> -- Pilih Nama Bank -- </option>
+									</select>
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label>No. Rekening<font color="red"> *</font></label> <input
+										required type="number" class="form-control" id="noacc2" name="noRekening"
+										placeholder="Masukkan no. rekening">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Atas Nama<font color="red"> *</font></label> <input
+										required type="text" class="form-control" id="holder2" name="atasNama"
+										placeholder="Masukkan atas nama dari no. rekening">
+								</div>
+							</div>
+							</div>
+							<div class="row">
+							<div class="col">
+								<div class="form-group">
+									<label>No. Telepon<font color="red"> *</font></label> <input
+										required type="number" class="form-control" id="phone2" name="noTelpPT"
+										placeholder="Masukkan nomor telepon">
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group">
+									<label>Email<font color="red"> *</font></label> <input
+										required type="email" class="form-control" id="email2" name="emailPT"
+										placeholder="Masukkan email">
+								</div>	
+							</div>
+							</div>							
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+<!--                     <button class="btn btn-primary" id="btn-save-distrib" type="button">Save</button> -->
+                    <button class="btn btn-primary" id="btn-edit-distrib" type="button">Update</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+<!-- MODAL ALERT TIDAK BISA DELETE DISTRIBUTOR -->
+      <div class="modal fade" id="modal-alertdist">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Tidak bisa menghapus data distributor.</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+              <p>Perusahaan yang Anda pilih masih memiliki daftar barang yang didistribusikan.</p>
+              <p>Silahkan cek dan kelola daftar barang dengan klik <a href="/barang">Kelola Barang.</a></p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <a href="/barang"><button type="button" class="btn btn-primary">Kelola Barang</button></a>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+<!-- 	modal tabel barang -->
+	<div class="modal fade" id="modal-barang" data-backdrop="static">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Data Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                    
+                    
+                </div>
+                <div class="modal-body">
+                     <div class="card-header">
+						<p>Filter Pencarian Data Barang</p>
+			             <div class="row "> <!-- justify-content-center -->
+			                <div class="input-group col-md-8"> <!-- offset-md-3 -->
+			                  <input type="text" class="form-control" id="barangF" placeholder="Nama Barang">
+			                  <input type="text" class="form-control" id="kateF" placeholder="Kategori Barang">
+			                  <input type="text" class="form-control" id="distF" placeholder="Nama Distributor Barang">
+			                  <span class="input-group-append">
+			                    <button type="button" class="btn btn-info btn-flat" onclick="tableBarang.showBarangByFilter()">Cari</button>
+			                  </span>
+			                </div>
+			                <button class="float-right btn btn-primary" onclick="tableBarang.showBarang2()">Reset</button>
+			            	 <div class="col">
+			            	<button type="button" class="float-right btn btn-success" id="btn-add-item"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Barang</button>
+			            	</div>
+			            </div> <!-- row -->
+                     </div> <!--  card header -->
+                    <div class="card-body table-responsive">
+                		<table class="table table-striped table-bordered table-hover nowrap" id="tableBarang"
+                       		style="width:100%"></table>
+            		</div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <a href="/barang"><button type="button" class="btn btn-primary">Kelola Barang</button></a>
+<!--                     <button type="button" class="btn btn-success" id="btn-add-item"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Barang</button> -->
+                </div>
+            </div>
+<!--             /.modal-content -->
+        </div>
+<!--         /.modal-dialog -->
+    </div>
+
+<!-- modal form tambah barang -->
+<div class="modal fade" id="modal-add-item" data-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Tambah Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button" onclick="formBarang.resetForm()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+
+<!--                     </div> -->
+                    <form id="form-barang" role="form">
+<!-- 		                       <div class="form-group"> -->
+<!-- 		                            <label>Jumlah Barang: </label> -->
+<!-- 		                             <select class="form-control select2" style="width: 100%;" id="cobaselect" name="" required> -->
+<!-- 		                               <option value="0" selected hidden> -- Pilih jumlah barang yang akan diinput -- </option> -->
+<!-- 		                               <option value="1">1</option> -->
+<!-- 		                               <option value="2">2</option> -->
+<!-- 		                               <option value="3">3</option> -->
+<!-- 		                               <option value="4">4</option> -->
+<!-- 		                             	<option value="5">5</option> -->
+<!-- 		                             </select>									 -->
+
+<!-- 		                       </div> -->
+<!-- 		                        <div class="form-group" id="cobaAja"> -->
+		                        <!--  to be filled later -->
+<!-- 		                        </div> -->
+<!-- 								<div class="form-row" > -->
+								<div class="row">
+								<div class="col">
+							 	<div class="form-group">                         
+		                            <label>Nama Barang: </label>
+		                            <input class="form-control" id="namaBarang1" name="namaBarang" placeholder="Nama Barang" required type="text">
+		                        </div>
+		                        </div>
+		                        <div class="col">
+		                        <div class="form-group ">
+		                            <label>Kategori: </label>
+		                            <select class="form-control select2" style="width: 100%;" id="namaKategori1" name="namaKategori" required>
+		                               <option value="0" selected disabled> -- Pilih Kategori -- </option>
+		                             </select>
+		                         </div>
+		                         </div>
+		                        <div class="col">
+		                        <div class="form-group">
+		                            <label>Distributor: </label>
+		                             <select class="form-control select2" style="width: 100%;" id="namaPT1" name="namaPT" required>
+		                               <option value="0" selected disabled> -- Pilih Distributor -- </option>
+		                             </select>							
+		                       </div>
+		                       </div>
+		                       </div> <!-- row -->
+<!-- 							</div> -->
+								
+                    </form>
+                    
+                  <!-- TAMBAHKAN DATA KE TABEL SEMENTARA -->
+                <div class="modal-footer justify-content-between">
+				<button type="button" id="simpan" name="simpan" class="btn btn-primary">
+					<i class="fas fa-plus"></i> Tambahkan Data</button>
+				</div>
+                
+                <!-- TABEL SEMENTARA -->
+                	<div class="card card-body card-success card-outline table-responsive">
+							<table class="table table-bordered table-hover nowrap" > <!-- style="width: 100%" -->
+								<thead>
+									<tr>
+										<th>Nama Barang</th>
+										<th>Kategori</th>
+										<th>Distributor</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody id="tabel"></tbody>
+							</table>
+						</div>
+                    
+                </div> <!-- modal body -->
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button" onclick="formBarang.resetForm()">Close</button>
+                    <button class="btn btn-success toastrDefaultSuccess" id="submit" type="button">
+                    <i class="fas fa-save"></i>&nbsp;&nbsp;Save</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+<!-- MODAL INFO DISTRIB -->
+<div class="modal fade" id="modal-info">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Informasi Distributor</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                 <form id="bukan-form" role="form"> -->
+                <dl class="row">
+                  <dt class="col-sm-4">Nama Perusahaan</dt>
+                  <dd class="col-sm-8" id="infonamapt"></dd>
+                  <dt class="col-sm-4">Alamat Perusahaan</dt>
+                  <dd class="col-sm-8" id="infoalamat"></dd>
+                  <dt class="col-sm-4">NPWP</dt>
+                  <dd class="col-sm-8" id="infonpwp"></dd>
+                  <dt class="col-sm-4">Bank</dt>
+                  <dd class="col-sm-8" id="infobank"></dd>
+                  <dt class="col-sm-4">No. Rekening</dt>
+                  <dd class="col-sm-8" id="infonorek"></dd>
+                  <dt class="col-sm-4">Atas Nama</dt>
+                  <dd class="col-sm-8" id="infoatasnama"></dd>
+                  <dt class="col-sm-4">No. Telpon</dt>
+                  <dd class="col-sm-8" id="infonotelp"></dd>
+                  <dt class="col-sm-4">Email</dt>
+                  <dd class="col-sm-8" id="infoemail"></dd>
+                </dl>
+<!-- 				</form>	 -->
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+<!--                     <button class="btn btn-success toastrDefaultSuccess" id="btn-save-item" type="button">Save</button> -->
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+</div>
+
+
+<th:block layout:fragment="add-scripts">
+<!-- 	ganti file .js nya -->
+    <script th:src="@{/assets/dist/js/distributor.js}"></script>
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> -->
+<!-- Select2 -->
+<!-- <script src="/assets/plugins/select2/js/select2.full.min.js"></script> -->
+    <script>
+        tableDistrib.create();
+        selopKategori.getAllKategori(0);
+        selopDistributor.getAllDistributor(selDist);
+        $(".select2").select2();
+        
+//         $(document).ready(function() {
+//             $('#tableDistrib').DataTable( {
+//                 dom: 'Bfrtip',
+//                 buttons: [
+//                     'copy', 'csv', 'excel', 'pdf', 'print'
+//                 ]
+//             } );
+//         } );
+        
+//         $('#cobaselect').change(function() {
+//             var num = parseInt($(this).val(), 2);
+//             var container = $('<div class="form-row" />');
+//             for(var i = 0; i < num; i++) {
+//                 container.append('<div class="form-group col-md-3">'+                        
+// 		                            '<label>Nama Barang ke-'+(i+1)+': </label>'+
+// 		                            '<input class="form-control" id="namaBarang'+(i+1)+'" name="namaBarang" placeholder="Nama Barang" required type="text">'+
+// 		                        '</div>'+
+// 		                        '<div class="form-group col-md-3">'+
+// 		                            '<label>Kategori: </label>'+
+// 		                            '<select class="form-control select2" style="width: 100%;" id="namaKategori'+(i+1)+'" name="namaKategori" required>'+
+// 		                               '<option value="0" selected hidden> -- Pilih Kategori -- </option>'+
+// 		                             '</select>'+
+// 		                         '</div>'+
+// 		                        '<div class="form-group col-md-2">'+
+// 		                            '<label>Distributor: </label>'+
+// 		                             '<select class="form-control select2" style="width: 100%;" id="namaPT'+(i+1)+'" name="namaPT" required>'+
+// 		                               '<option value="0" selected hidden> -- Pilih Distributor -- </option>'+
+// 		                             '</select>'+									
+// 		                       '</div>');
+//             }
+//             $('#cobaAja').html(container);
+            
+//             //$(".select2").select2(); // hanya slh satu yg bs plh
+//             	// selDist dari distributor.js showBarang
+//        });
+        
+        
+        
+        $("#btn-add-item").click(function () {
+        	$("#modal-barang").modal("hide");
+        	$('#form-barang').parsley().reset();
+//         	var container1 = $('');
+//             $('#cobaAja').html(container1);
+            
+            formBarang.resetForm(); 
+//             $("#cobaselect").val('0');
+//             $("#cobaselect").trigger('change');
+            
+            $("#tabel").empty();
+            
+            $('#modal-add-item').modal('handleUpdate');
+            
+            $('#modal-add-item').modal('show');
+            
+        });
+        
+        
+        $("#btn-save-item").click(function () {
+            formBarang.saveForm();
+        });
+        
+        
+        $("#btn-tambah-distrib").click(function () {
+        	populateCombo.getAllBank();
+        	$('#form-distrib').parsley().reset();
+            formDistrib.resetForm();
+            $('#modal-distrib').modal('show');
+        });
+
+        $("#btn-save-distrib").click(function () {
+            formDistrib.saveForm();
+        });
+      
+        	$("#npwpID").mask("99.999.999.9-999.999");
+        	$("#npwpID2").mask("99.999.999.9-999.999");
+
+        	// TABEL SEMENTARA
+        	   var i = 0;
+        			currentRow = null;
+        			var kumpulan = [];
+
+        			$("#simpan").click(function() {
+        								if ($('#form-barang').parsley().validate()) {
+
+        						            var selkat = document.getElementById("namaKategori1");
+        						            var idkat = selkat.options[selkat.selectedIndex].id;
+        						            var katval = selkat.options[selkat.selectedIndex].value;
+        						            
+        						            var seldis = document.getElementById("namaPT1");
+        						            var iddis = seldis.options[seldis.selectedIndex].id;
+        						            var disval = seldis.options[seldis.selectedIndex].value;
+        						            
+        						            
+        						            var barang = $("#namaBarang1").val();
+
+        									i++;
+        									var table = "<tr class = 'rowBarang' id ='row"+i+"'><td class = 'barang'>"
+        											+ barang
+        											+ "</td><td class = 'katval'>"
+        											+ katval
+        											+ "</td><td class = 'disval'>"
+        											+ disval
+        											+ "</td><td><span class='editrow'><a href='javascript: void(0);'><button class='btn btn-primary btn-sm'><i class='fas fa-edit'></i></button></a></span>"
+        											+"<span class='deleterow'><a class='glyphicon glyphicon-trash' href='javascript:void(0)'><div class='btn-group'><button class='btn btn-danger btn-sm'><i class='fas fa-trash-alt'></i></button></div></a></span></td></tr>";
+        									$('#form-barang').parsley().reset();
+        									
+        									//$('#formBiodata2').parsley().reset();
+//        	 								"<button class='btn btn-primary btn-sm'><i class='fas fa-edit'></i></button>" +
+//        	     			                                    		"<button class='btn btn-danger btn-sm' onclick=formBarang.deleteData('" + data.idStok + "') id='del'><i class='fas fa-trash-alt'></i></button>"
+        	    			               
+
+// 											var myKate = {
+// 												"idKategori" : idkat,
+// 												"namaKategori" : katval
+// 											};
+											
+// 											var myDist = {
+// 													"distID" : iddis,
+// 													"namaPT" : disval
+// 											}
+
+        									var isi = {
+        						            		"namaBarang" : barang,
+        						            		"distID" : iddis,
+													"namaPT" : disval,
+													"idKategori" : idkat,
+													"namaKategori" : katval
+        						            		
+        						            };
+        									
+        								} // parsley
+        								
+        								
+        								if (isi == undefined){
+        									toastr.error('Mohon tambah dan masukkan data terlebih dahulu.')
+        								}
+        								
+        								kumpulan.push(isi);
+        								console.log("isi", isi)
+        								console.log("array kumpulan: ", kumpulan)
+        								
+        								if (currentRow) {
+        									 $("#tabel").find($(currentRow)).replaceWith(table);
+        	                                 currentRow = null;
+        	                                 toastr.info('Data sudah berhasil diperbarui.');
+        	                                }
+        	                                else{
+        	                                $("#tabel").append(table);
+        	                                }
+        								// reset form
+        								$("#namaKategori1").val('0').trigger('change');
+        						        $("#namaPT1").val('0').trigger('change');
+        						        $("#namaBarang1").val("");
+        							});
+
+        			// 		Save data ke database
+        			$('#submit').click(function() {
+        				
+        				formBarang.saveAll(); 
+        				$("#tabel").empty();
+        				kumpulan = [];
+//         				formBarang.resetForm();
+        			});
+
+        			// 		hapus data di tabel sementara
+        			var deleteRow;
+        			
+        				
+        			$("#tabel").on("click", '.deleterow', (function() {
+        				if (confirm('Anda yakin ingin menghapus data ini?')) {
+        				
+        				deleteRow = $(this).closest('tr').remove();
+        				kumpulan.splice(deleteRow.index(), 1);
+        				deleteRow.remove();
+        				formBarang.resetForm();
+        				
+        				newRow = $('#tabel').find('.rowBarang').length;
+        				if (newRow < 1) {
+        					$('#submit').prop('disabled');
+        				} else {
+        					$('#submit').removeAttr('disabled');
+        				}
+        			}
+        			}));
+        			
+//        	 		var editRow;
+        			 $(document).on('click', 'span.editrow', function () {
+        				 
+        				 toastr.info('Silahkan ubah data Anda pada form yang telah disediakan.');
+        				 
+        			     currentRow= $(this).parents('tr');
+        			     $("#namaKategori1").val($(this).closest('tr').find('td.katval').text()).trigger('change');
+        			     $("#namaPT1").val($(this).closest('tr').find('td.disval').text()).trigger('change');
+        			     $("#namaBarang1").val($(this).closest('tr').find('td.barang').text());
+        			    
+        			     kumpulan.splice(currentRow.index(), 1);
+//        	 			 currentRow.remove();
+        			 });
+        
+        	 	
+        	
+    </script>
+</th:block>
+
+</html>
+
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html layout:decorate="~{baselogin}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- <div class="row mb-2" layout:fragment="content-header"> -->
+<!--     <div class="col-sm-6"> -->
+<!--         <h1 class="m-0 text-dark">Login Page</h1> -->
+<!--     </div> -->
+<!--     <div class="col-sm-6"> -->
+<!--         <ol class="breadcrumb float-sm-right"> -->
+<!--             <li class="breadcrumb-item"><a href="#">Data</a></li> -->
+<!--             <li class="breadcrumb-item active">Manage</li> -->
+<!--         </ol> -->
+<!--     </div> -->
+<!-- </div> -->
+
+<div class="row" layout:fragment="content-body">
+	
+<!--     <div class="col-12"> -->
+<!--         <div class="card" style="background-color:pink;"> -->
+<!--             <div class="card-header"> -->
+<!--                 <h3 class="card-title">Welcome to Toko Anda! Please click the green button below to log in or the blue button if you want to register as a user.</h3> -->
+<!--             </div> -->
+            <!-- /.card-header -->
+            <div class="card-body login-card-body">
+            <p class="login-box-msg">Log in to start your session</p>
+            <form id="form-login" role="form">
+                        <input name="id" type="hidden"/>
+									<div class="form-group">
+										<label for="username">Username</label> <input required type="text"
+											class="form-control" id="username" name="username"
+											placeholder="Enter your username">
+									</div>
+									<div class="form-group">
+										<label for="password">Password</label>
+										<input required type="password"
+											class="form-control" id="password" name="password"
+											placeholder="Enter your password">
+									<div class="row" style="float: right;">
+                        			<div class="col-md-12">
+											<input type="checkbox" onclick="myFunction()">Show Password
+									</div>
+									</div>		
+									</div>
+			
+             </form>
+             
+				<br><div class="row">
+					<div class="col-12">
+				        <button class="float-right btn btn-info" style="width: 100%;" id="btn-login"><i class="fas fa-user"></i>&nbsp;&nbsp;LOG IN</button>
+					</div>
+				</div>
+	            <p></p>
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-12"> -->
+<!-- 				         <button class="float-left btn btn-primary" style="width: 100%;"id="btn-register-biodata"><i class="fas fa-plus"></i>&nbsp;&nbsp;REGISTER</button> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
+				<p class="mb-0">
+			       <a href="/register/admin" class="text-center">Don't have an account? Register here.</a>
+			    </p>
+	
+	            </div>
+            <!-- /.card-body -->
+<!--         </div> -->
+        <!-- /.card -->
+<!--     </div> -->
+    <!-- /.col -->
+    
+<!--     <p id ="demo"></p> -->
+    
+</div>
+    
+
+<th:block layout:fragment="add-scripts">
+    <script th:src="@{/assets/dist/js/login.js}"></script>    
+    
+
+    <script>
+
+        $('#btn-login').click(function () {
+            formLogin.saveLogin()
+        })
+        
+        $('#btn-register-biodata').click(function () {
+        	window.location.replace("http://localhost:1212/register/user");
+        })
+        
+        function myFunction() {
+		  var x = document.getElementById("password");
+		  if (x.type === "password") {
+		    x.type = "text";
+		  } else {
+		    x.type = "password";
+		  }
+		}
+
+    </script>
+</th:block>
+
+</html>

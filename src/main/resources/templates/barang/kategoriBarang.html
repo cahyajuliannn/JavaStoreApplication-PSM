@@ -1,0 +1,133 @@
+ <!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Kategori Barang</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="kategori">Kategori Barang</a></li>
+            <li class="breadcrumb-item active">index</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Kategori Barang</h3>
+                <button class="float-right btn-primary" id="btn-tambah-kategori">Tambah</button>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableKategori"
+                       style="width:100%"></table>
+            </div>
+            <p id="demo"> </p>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    
+<!-- Modal kBarang SAVE/POST -->
+        <div class="modal fade" id="modal-kategori">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Kategori Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-kategori" role="form">
+                        <input name="id" type="hidden"/>
+
+                        <div class="form-group">
+                            <label>Kategori Barang : </label>
+                            <input class="form-control" id="namaK" name="namaKategori"
+                                   placeholder="Nama Kategori Barang" required type="text">
+                        </div>  
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-success toastrDefaultSuccess" id="btn-save-kategori" type="button">Save</button>
+                 
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+<!-- Modal UPDATE Kategori Barang -->
+        <div class="modal fade" id="modal-kategori2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Kategori Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-kategori2" role="form">
+                        <input name="id" type="hidden"/>
+
+                        <div class="form-group">
+                            <label>Kategori Barang : </label>
+                            <input class="form-control" id="namaK2" name="namaKategori"
+                                   placeholder="Nama Kategori Barang" required type="text">
+                        </div>  
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-edit-kategori" type="button">Update</button>
+                 
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+           
+</div>
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/kategoriBarang.js}"></script>
+
+    <script>
+    tableKategori.create();
+
+        $('#btn-cari-pasien').click(function () {
+            var tanggalLahir = new Date($('#tanggalLahir').val()) * 1;
+            tableKelolaPasien.create();
+        });
+
+        $('#btn-tambah-kategori').click(function () {
+            formKategori.resetForm();
+            $('#modal-kategori').modal('show')
+        });
+
+        $('#btn-save-kategori').click(function () {
+            formKategori.saveForm()
+        });
+
+    </script>
+</th:block>
+
+</html>
+
+

@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html layout:decorate="~{base}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+
+
+
+<div class="row mb-2" layout:fragment="content-header">
+	<div class="col-sm-6">
+		<srong>
+		<h1 class="m-0 text-dark">Update Cabang</h1>
+		</srong>
+	</div>
+	<!-- 	<div class="col-sm-6"> -->
+	<!-- 		<ol class="breadcrumb float-sm-right"> -->
+	<!-- 			<li class="breadcrumb-item"><a href="/toko">Toko</a></li> -->
+	<!-- 			<li class="breadcrumb-item active"><a href="/cabang3">Home</a></li> -->
+	<!-- 		</ol> -->
+	<!-- 	</div> -->
+</div>
+
+<section class="content" layout:fragment="content-body">
+
+	<!-- 	<div class="col-12"> -->
+	<!-- 		<div class="card"> -->
+	<!-- 			<div class="card-header"> -->
+	<!-- 				<p>Filter Pencarian</p> -->
+	<!-- 				<div class="row"> -->
+
+	<!-- 					<div class="col-md-6"> -->
+	<!-- 						<div class="input-group form-group col-sm"> -->
+	<!-- 							<select class="form-control" style="width: 80%;" -->
+	<!-- 								id="selectStatus"> -->
+	<!-- 								<option value="0" selected hidden>-- Pilih Status --</option> -->
+	<!-- 								<option value="Aktif">Aktif</option> -->
+	<!-- 								<option value="NonAktif">Non Aktif</option> -->
+	<!-- 							</select> -->
+	<!-- 							                  	<span class="input-group-append"> -->
+	<!-- 							<button class="btn btn-info btn-flat" -->
+	<!-- 								onclick="formBiodata.createByStatus()">Cari</button> -->
+	<!-- 							                  	</span> -->
+	<!-- 						</div> -->
+	<!-- 					</div> -->
+	<!-- 					<div class="col-md-2"> -->
+	<!-- 						<button class="float-right btn btn-info btn-block" -->
+	<!-- 							id="statusReset">Reset</button> -->
+	<!-- 					</div> -->
+
+	<!-- 				</div> -->
+	<!-- 				row -->
+
+	<!-- 			</div> -->
+	<!-- 			<!-- /.card-header -->
+	<!-- 		</div> -->
+	<!-- 		<!-- /.card -->
+	<!-- 	</div> -->
+
+	<div class="col-12" id="cardHeader">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title" hidden>Daftar Stok Barang</h3>
+				<p>Filter Pencarian</p>
+				<div class="row">
+					<!--              <div class="col"> -->
+					<div class="col">
+						<input type="text" class="form-control" id="filterCabang"
+							placeholder="Nama Cabang">
+					</div>
+					<div class="col">
+						<input type="text" class="form-control" id="filterKota"
+							placeholder="Kota/Kabupaten">
+					</div>
+					<div class="col">
+						<select class="form-control select2" style="width: 100%;"
+							id="statusfilter">
+							<option selected hidden>-- Status --</option>
+							<option value="Aktif">Aktif</option>
+							<option value="NonAktif">Non Aktif</option>
+						</select>
+					</div>
+					<div class="col">
+						<button class="btn btn-info btn-flat"
+							onclick="formBiodata.filterByAll()">Cari</button>
+					</div>
+
+					<!--                 </div> -->
+					<div class="col">
+						<button class="float-right btn btn-primary"
+							id = "resetAll">Reset</button>
+					</div>
+				</div>
+				<!-- row -->
+			</div>
+		</div>
+		<!-- /.card -->
+	</div>
+
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card card-info">
+					<div class="card-header">
+						<h3 class="card-title">Update Data Cabang</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6">
+								<form role="form" id="formBiodata">
+
+									<div class="form-group">
+										<label for="Fullname">Nama Cabang</label> <input required
+											type="text" class="form-control" id="namaCabang"
+											name="namaCabang" placeholder="Masukkan nama cabang..">
+									</div>
+
+									<div class="form-group">
+										<label for="alamatCabang">Alamat Cabang</label> <input
+											required type="text" class="form-control" id="alamatCabang"
+											name="alamatCabang" placeholder="Masukkan Alamat Cabang..">
+									</div>
+
+									<div class="form-group">
+										<label>Kota/Kabupaten </label>
+										<div class="select2-puple">
+											<select class="form-control select2" id="kotaKab"
+												data-placeholder="Kota/Kabupaten"
+												data-dropdown-css-class="select2-purple"
+												style="width: 100%;" required>
+												<option value=0 hidden selected>--Select--</option>
+											</select>
+										</div>
+									</div>
+
+<div class="form-group">
+										<label>Nama Bank </label>
+										<div class="select2-puple">
+											<select class = "form-control select2" id="bank" data-dropdown-css-class="select2-purple"
+												style="width: 100%;" required>
+												<!-- 												<option value=0 disable selected>--Select--</option> -->
+											</select>
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label>Tanggal Berdiri</label> <input required type="date"
+											nama="tanggalBerdiri" class="form-control"
+											id="tanggalBerdiri">
+									</div>
+									
+									<div class="form-group">
+										<label for="Address">Nomor Rekening</label> <input required
+											type="number" class="form-control" id="noRekening"
+											name="noRekening">
+									</div>
+								</form>
+
+							</div>
+
+							<div class="col-md-6">
+								<form role="form" id="formBiodata2">
+
+
+									<div class="form-group">
+										<label for="Address">Jam Buka</label> <input required
+											type="time" class="form-control" id="jamBuka" name="jamBuka">
+									</div>
+
+									<div class="form-group">
+										<label for="Address">Jam Tutup</label> <input required
+											type="time" class="form-control" id="jamTutup"
+											name="jamTutup">
+									</div>
+									<div class="form-group">
+										<label>Status </label> <select class="form-control"
+											id="status" style="width: 100%;">
+											<option value=0 hidden selected>--Select--</option>
+											<option value="Aktif">Aktif</option>
+											<option value="Non Aktif">Non Aktif</option>
+										</select>
+									</div>
+									
+									<div class="form-group">
+										<label for="namaPemilik">Nama Pemilik</label> <input required
+											type="text" class="form-control" id="namaPemilik"
+											name="namaPemilik" placeholder="Masukkan nama Pemilik..">
+									</div>
+
+									<div class="form-group">
+										<label>Toko Induk </label>
+										<div class="select2-puple">
+											<select class="form-control" id="tokoInduk"
+												data-dropdown-css-class="select2-purple"
+												style="width: 100%;" required>
+												<!-- 												<option value=0 hidden selected>--Select--</option> -->
+											</select>
+										</div>
+									</div>
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button type="button" id="update" name="update"
+					class="btn btn-primary">Update Data</button>
+			</div>
+
+		</div>
+		<!-- /.card-body -->
+	</div>
+
+	<div class="card-body table-responsive">
+		<table class="table table-striped" id="tableBiodata"
+			style="width: 100%"></table>
+	</div>
+
+</section>
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/cabangedit.js}"></script>
+
+	<script>
+		$('#selectStatus').select2();
+		tableBiodata.create();
+
+		$('#statusReset').click(function() {
+			tableBiodata.create();
+			$('#selectStatus').val('0').trigger('change')
+
+		})
+		$('#resetAll').click(function() {
+			tableBiodata.create();
+			$('#filterstatus').val('0').trigger('change')
+			$('#filterCabang').val('')
+			$('#filterKota').val('')
+
+		})
+	</script>
+
+</th:block>
+
+</html>
+

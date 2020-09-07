@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Manajemen User</h1>
+    </div>
+    <div class="col-sm-6">
+<!--         <ol class="breadcrumb float-sm-right"> -->
+<!--             <li class="breadcrumb-item"><a href="#">Data</a></li> -->
+<!--             <li class="breadcrumb-item active">Manage</li> -->
+<!--         </ol> -->
+    </div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+            
+	            <p>&nbsp;&nbsp;Filter Search</p>
+	             <div class="row col-6">
+<!-- 	            	<div class="input-group col-sm"> -->
+<!-- 	                  <select class="form-control select2" style="width: 80%;" id="selectStatus"> -->
+<!-- 							<option selected hidden> -- Pilih Status -- </option> -->
+<!-- 							<option value="Masuk">Masuk</option> -->
+<!-- 							<option value="Keluar">Keluar</option> -->
+<!-- 						</select> -->
+<!-- 	                  	<span class="input-group-append"> -->
+<!-- 	                  	<button class="btn btn-info btn-flat" onclick="tableHistok.createByStatus()"><i class="fas fa-search"></i></button> -->
+<!-- 	                  	</span> -->
+<!-- 	                </div> -->
+					<div class="input-group col-sm ">
+	                  <input type="text" class="form-control" id="roleuser" placeholder="Role">
+	                  <input type="text" class="form-control" id="usname" placeholder="Username">
+	                  <span class="input-group-append">
+	                    <button type="button" class="btn btn-info btn-flat" onclick="formBiodata.searchByRU()"><i class="fas fa-search"></i></button>
+	                  </span>
+	                </div>
+<!-- 	                <div class="input-group col-sm"> -->
+<!-- 	                  <input type="text" class="form-control" id="uname" placeholder="Username"> -->
+<!-- 	                  <span class="input-group-append"> -->
+<!-- 	                  <button class="btn btn-info btn-info" onclick="formBiodata.searchByUsername()"><i class="fas fa-search"></i></button> -->
+<!-- 	                  </span> -->
+<!-- 	                </div> -->
+<!-- 	                <div class="input-group col-sm"> -->
+<!-- 	                  <input type="date" class="form-control" id="startDate"> -->
+<!-- 	                  <span class="input-group-append"> -->
+<!-- 	                  </span> -->
+<!-- 	                </div> -->
+<!-- 	                <div class="input-group col-sm"> -->
+<!-- 	                  <input type="date" class="form-control" id="endDate"> -->
+<!-- 	                  <span class="input-group-append"> -->
+<!-- 	                    <button type="button" class="btn btn-info btn-flat" onclick="tableHistok.createByFilters()"><i class="fas fa-search"></i></button> -->
+<!-- 	                  </span> -->
+<!-- 	                </div> -->
+	                <button class="float-right btn btn-primary" onclick="tableBiodata.create()">Reset</button>
+	            </div><br> 
+                <!-- /input-group -->
+            
+                <h3 class="card-title"><b>List User</b></h3>
+                <button class="float-right btn btn-success" id="btn-tambah-biodata"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah User</button><br>  
+<!--                 <button class="float-right btn-success" id="btn-login-biodata">LOG IN</button>               -->     
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableBiodata"
+                       style="width:100%">
+<!--                  <button class="btn btn-danger" id="btn-delete-biodata" type="button">Delete</button> -->
+                     	
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    
+<!--     <div class="col-12"> -->
+<!--         <div class="card"> -->
+<!--             <div class="card-header"> -->
+<!--                 <h3 class="card-title"><b>List User & Role</b></h3> -->
+<!--                 <button class="float-right btn btn-primary" id="btn-tambah-userroles"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Role For User</button>   -->
+<!--             </div> -->
+<!--             /.card-header -->
+<!--             <div class="card-body table-responsive"> -->
+<!--                 <table class="table table-striped table-bordered table-hover nowrap" id="tableUser" -->
+<!--                        style="width:100%">                     	 -->
+<!--                 </table> -->
+<!--             </div> -->
+<!--             /.card-body -->
+<!--         </div> -->
+<!--         /.card -->
+<!--     </div> -->
+<!--     /.col -->
+    
+<!--     <div class="col-12"> -->
+<!--         <div class="card"> -->
+<!--             <div class="card-header"> -->
+<!--                 <h3 class="card-title"><b>List Branch Access</b></h3> -->
+<!--                 <button class="float-right btn btn-primary" id="btn-tambah-branchaccess"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Branch Access</button>   -->
+<!--             </div> -->
+<!-- <!--             /.card-header -->
+<!--             <div class="card-body table-responsive"> -->
+<!--                 <table class="table table-striped table-bordered table-hover nowrap" id="tableBranchAccess" -->
+<!--                        style="width:100%">                     	 -->
+<!--                 </table> -->
+<!--             </div> -->
+<!-- <!--             /.card-body -->
+<!--         </div> -->
+<!-- <!--         /.card -->
+<!--     </div> -->
+<!--     /.col -->
+    
+<!--     <div class="col-12"> -->
+<!--         <div class="card"> -->
+<!--             <div class="card-header"> -->
+<!--                 <h3 class="card-title">List Username & Password</h3> -->
+<!-- <!--                 <button class="float-right btn-success" id="btn-tambah-biodata">Add</button>                 -->
+<!--             </div> -->
+<!--             /.card-header -->
+<!--             <div class="card-body table-responsive"> -->
+<!--                 <table class="table table-striped table-bordered table-hover nowrap" id="tableUser" -->
+<!--                        style="width:100%"> -->
+<!-- <!--                  <button class="btn btn-danger" id="btn-delete-biodata" type="button">Delete</button> --> 
+                     	
+<!--                 </table> -->
+<!--             </div> -->
+<!--             /.card-body -->
+<!--         </div> -->
+<!--         /.card -->
+<!--     </div> -->
+<!--     /.col -->
+    
+<!--     <p id ="demo"></p> -->
+	
+
+    <div class="modal fade" id="modal-biodata">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah User</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+<!-- 					</div> -->
+                    <form id="form-biodata" role="form">
+                        <input name="id" type="hidden"/>
+                         <div class="row">
+                        	<div class="col-md-6">
+									<div class="form-group">
+										<label for="fullname">Nama Lengkap<font color="red"> *</font></label> <input required type="text"
+											class="form-control" id="fname" name="namaLengkap"
+											placeholder="Nama lengkap">
+									</div>
+									<div class="form-group">
+										<label for="birthdate">Tanggal Lahir<font color="red"> *</font></label> <input required type="date"
+											class="form-control" id="bdate" name="tglLahir"
+											placeholder="Tanggal lahir">
+									</div>
+									<div class="form-group">
+										<label for="address">Alamat<font color="red"> *</font></label> <input required type="text"
+											class="form-control" id="address" name="alamat"
+											placeholder="Alamat">
+									</div>
+									<div class="form-group">
+										<label>Kota/Kabupaten<font color="red"> *</font></label><br>
+										<select class="form-control" style="width: 100%;" id="mySelect" name="kotaLokasi">
+												<option></option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="email">Email<font color="red"> *</font></label> <input required type="text"
+											class="form-control" id="email" name="email"
+											placeholder="Email">
+									</div>
+									</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="nomorhp">Nomor HP<font color="red"> *</font></label> <input required type="text"
+											class="form-control" id="nomorhp" name="noHandphone"
+											placeholder="Nomor HP">
+									</div>
+									<div class="form-group">
+											<label>Role User<font color="red"> *</font></label><br> 
+											<select class="custom-select" style="width: 100%;" id="roleus" name="idRole"> 
+<!-- 												<option selected value="base">--Pilih Role--</option> -->
+											</select>
+									</div>
+									<div class="form-group">
+											<label>Cabang<font color="red"> *</font></label> <br>
+											<select class="custom-select" style="width: 100%;" id="cabang" name="idCabang"> 
+<!-- 												<option selected value="base">--Plih Cabang--</option> -->
+											</select>
+									</div>
+									<div class="form-group">
+										<label for="username">Username<font color="red"> *</font></label> <input required type="text"
+											class="form-control" id="username" name="username"
+											placeholder="Username">
+									</div>
+									<div class="form-group">
+										<label for="password">Password<font color="red"> *</font></label> <input required type="password"
+											class="form-control" id="password" name="password"
+											placeholder="Password">
+									<div class="row" style="float: right;">
+                        			<div class="col-md-12">
+											<input type="checkbox" onclick="myFunction1()">Show Password
+									</div>
+									</div>	
+									</div>
+									</div>		
+									</div>			
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-save-biodata" type="button">Save</button>
+                    
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
+    <div class="modal fade" id="modal-edit-biodata">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Data User</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+ 
+                    <form id="form-edit-biodata" role="form">
+                        <input name="id" type="hidden"/>
+                        <div class="row">
+                        	<div class="col-md-6">
+									<div class="form-group">
+										<label for="fullname">Nama Lengkap</label> <input required type="text"
+											class="form-control" id="fname2" name="namaLengkap"
+											placeholder="Nama lengkap">
+									</div>
+									<div class="form-group">
+										<label for="birthdate">Tanggal Lahir</label> <input required type="date"
+											class="form-control" id="bdate2" name="tglLahir"
+											placeholder="Tanggal lahir">
+									</div>
+									<div class="form-group">
+										<label for="address">Alamat</label> <input required type="text"
+											class="form-control" id="address2" name="alamat"
+											placeholder="Alamat">
+									</div>
+									<div class="form-group">
+										<label>Kota/Kabupaten</label><br>
+										<select class="form-control" style="width: 100%;" id="mySelect2" name="kotaLokasi"></select>
+									</div>
+									<div class="form-group">
+										<label for="email">Email</label> <input required type="text"
+											class="form-control" id="email2" name="email"
+											placeholder="Email">
+									</div>
+									</div>
+                        	<div class="col-md-6">
+									<div class="form-group">
+										<label for="nomorhp">Nomor HP</label> <input required type="text"
+											class="form-control" id="nomorhp2" name="noHandphone"
+											placeholder="Nomor HP">
+									</div>
+									<div class="form-group">
+											<label>Role User</label><br> 
+											<select class="custom-select" style="width: 100%;" id="roleus2" name="role"> 
+<!-- 												<option selected value="base">--Pilih Role--</option> -->
+											</select>
+									</div>
+									<div class="form-group">
+											<label>Cabang</label> <br>
+											<select class="custom-select" style="width: 100%;" id="cabang2" name="namaCabang"> 
+<!-- 												<option selected value="base">--Plih Cabang--</option> -->
+											</select>
+									</div>
+									<div class="form-group">
+										<label for="username">Username</label> <input required type="text"
+											class="form-control" id="username2" name="username"
+											placeholder="Username">
+									</div>
+									<div class="form-group">
+										<label for="password">Password</label> <input required type="password"
+											class="form-control" id="password2" name="password"
+											placeholder="Password">
+									<div class="row" style="float: right;">
+                        			<div class="col-md-12">
+											<input type="checkbox" onclick="myFunction()">Show Password
+									</div>
+									</div>	
+									</div>	
+									</div>
+									</div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-update-biodata" type="button">Update</button>
+                    
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
+    
+      	<!-- /.START TABEL USER AND ROLE -->
+      
+       <div class="modal fade" id="modal-userroles">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Role For User</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+<!-- 					</div> -->
+                    <form id="form-userroles" role="form">
+                        <input name="id" type="hidden"/>
+									<div class="form-group">
+										<label for="user">ID User</label> <input required type="text"
+											class="form-control" id="user1" name="idUser"
+											placeholder="Enter User ID">
+									</div>
+									<div class="form-group">
+										<label for="role">ID User Role</label> <input required type="text"
+											class="form-control" id="role" name="idRole"
+											placeholder="Enter Role ID">
+									</div>
+												
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-save-userroles" type="button">Save</button>
+                    
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
+    <div class="modal fade" id="modal-edit-userroles">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Role For User</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+<!-- 					</div> -->
+                    <form id="form-edit-userroles" role="form">
+                        <input name="id" type="hidden"/>
+									<div class="form-group">
+										<label for="user">ID User</label> <input required type="text"
+											class="form-control" id="user2" name="idUser"
+											placeholder="Enter User ID">
+									</div>
+									<div class="form-group">
+										<label for="role">ID User Role</label> <input required type="text"
+											class="form-control" id="role2" name="idRole"
+											placeholder="Enter Role ID">
+									</div>
+												
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-update-userroles" type="button">Update</button>
+                    
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+          	<!-- /.END OF TABEL USER AND ROLE -->
+    
+    
+          	<!-- /.START TABEL BRANCH ACCESS-->
+    <div class="modal fade" id="modal-branchaccess">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Branch Access</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <div class="card-header">
+ 					</div>
+                    <form id="form-branchaccess" role="form">
+                        <input name="id" type="hidden"/>
+									<div class="form-group">
+										<label for="user">ID User</label> <input required type="text"
+											class="form-control" id="user11" name="idUser"
+											placeholder="Enter User ID">
+									</div>
+									<div class="form-group">
+										<label for="branch">ID Cabang</label> <input required type="text"
+											class="form-control" id="branch" name="idCabang"
+											placeholder="Enter ID Cabang">
+									</div>
+												
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-save-branchaccess" type="button">Save</button>
+                    
+                </div>
+            </div>
+<!--             /.modal-content -->
+        </div>
+<!--         /.modal-dialog -->
+    </div>
+    
+    <div class="modal fade" id="modal-edit-branchaccess">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Branch Access</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                     <div class="card-header">
+ 					</div>
+                    <form id="form-edit-branchaccess" role="form">
+                        <input name="id" type="hidden"/>
+									<div class="form-group">
+										<label for="user">ID User</label> <input required type="text"
+											class="form-control" id="user22" name="idUser"
+											placeholder="Enter User ID">
+									</div>
+									<div class="form-group">
+										<label for="branch">ID Cabang</label> <input required type="text"
+											class="form-control" id="branch2" name="idCabang"
+											placeholder="Enter ID Cabang">
+									</div>
+												
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-update-branchaccess" type="button">Update</button>
+                    
+                </div>
+            </div>
+<!--             /.modal-content -->
+        </div>
+<!--         /.modal-dialog -->
+    </div>          	
+
+	<!-- START MODAL INFO USER -->
+	<div class="modal fade" id="modal-info">
+	        <div class="modal-dialog modal-dialog-scrollable">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h4 class="modal-title">Informasi User</h4>
+	                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+	                        <span aria-hidden="true">&times;</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">
+	<!--                 <form id="bukan-form" role="form"> -->
+	                <dl class="row">
+	                  <dt class="col-sm-4">ID Biodata</dt>
+	                  <dd class="col-sm-8" id="infoidbiodata"></dd>
+	                  <dt class="col-sm-4">ID User</dt>
+	                  <dd class="col-sm-8" id="infoiduser"></dd>
+	                  <dt class="col-sm-4">Nama Lengkap</dt>
+	                  <dd class="col-sm-8" id="infonama"></dd>
+	                  <dt class="col-sm-4">Alamat</dt>
+	                  <dd class="col-sm-8" id="infoalamat"></dd>
+	                  <dt class="col-sm-4">Tanggal Lahir</dt>
+	                  <dd class="col-sm-8" id="infotgllahir"></dd>
+	                  <dt class="col-sm-4">Kota/Kabupaten</dt>
+	                  <dd class="col-sm-8" id="infokota"></dd>
+<!-- 	                  <dt class="col-sm-4">Email & Nomor HP</dt> -->
+<!-- 	                  <dd class="col-sm-8" id="infoemail"></dd> -->
+<!-- 	                  <dt class="col-sm-4">Nomor HP</dt> -->
+<!-- 	                  <dd class="col-sm-8" id="infonomorhp"></dd> -->
+<!-- 	                  <dt class="col-sm-4">Role</dt> -->
+<!-- 	                  <dd class="col-sm-8" id="inforole"></dd> -->
+<!-- 	                  <dt class="col-sm-4">Branch Access</dt> -->
+<!-- 	                  <dd class="col-sm-8" id="infobranchaccess"></dd> -->
+	                  <dt class="col-sm-4">Username</dt>
+	                  <dd class="col-sm-8" id="infousername"></dd>
+<!-- 	                  <dt class="col-sm-4">Password</dt> -->
+<!-- 	                  <dd class="col-sm-8" id="infopassword"></dd> -->
+	                </dl>
+	<!-- 				</form>	 -->
+	                </div>
+	                <div class="modal-footer justify-content-between">
+	                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+	<!--                     <button class="btn btn-success toastrDefaultSuccess" id="btn-save-item" type="button">Save</button> -->
+	                </div>
+	            </div>
+	            <!-- /.modal-content -->
+	        </div>
+	        <!-- /.modal-dialog -->
+	    </div>    
+
+</div>
+    
+
+<th:block layout:fragment="add-scripts">
+    <script th:src="@{/assets/dist/js/user.js}"></script>
+
+
+    <script>
+	    var userAndRole = []
+		var branchAccess = []
+	    var contactBiodata = []
+	    
+	    
+        tableBiodata.create();
+
+        $('#btn-tambah-biodata').click(function () {
+            formBiodata.resetForm();
+            $('#modal-biodata').modal('show')
+        });
+
+        $('#btn-save-biodata').click(function () {
+            formBiodata.saveForm()
+            userAndRole = []
+			branchAccess = []
+    	    contactBiodata = []
+        })
+        
+        function myFunction1() {
+		  var x = document.getElementById("password");
+		  if (x.type === "password") {
+		    x.type = "text";
+		  } else {
+		    x.type = "password";
+		  }
+		}
+        
+        function myFunction() {
+  		  var x = document.getElementById("password2");
+  		  if (x.type === "password") {
+  		    x.type = "text";
+  		  } else {
+  		    x.type = "password";
+  		  }
+  		}
+        
+//         tableUser.create();
+        
+        $('#btn-tambah-userroles').click(function () {
+            formUserroles.resetForm();
+            $('#modal-userroles').modal('show')
+        });
+
+        $('#btn-save-userroles').click(function () {
+            formUserroles.saveForm()
+        })
+        
+//         tableBranchAccess.create();
+        
+        $('#btn-tambah-branchaccess').click(function () {
+            formBranchAccess.resetForm();
+            $('#modal-branchaccess').modal('show')
+        });
+
+        $('#btn-save-branchaccess').click(function () {
+            formBranchAccess.saveForm()
+        })
+
+
+    </script>
+</th:block>
+
+</html>

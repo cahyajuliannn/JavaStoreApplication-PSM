@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Stok Barang</h1>
+    </div>
+    <div class="col-sm-6">
+<!--         <ol class="breadcrumb float-sm-right"> -->
+<!--             <li class="breadcrumb-item"><a href="#">Stok</a></li> -->
+<!--             <li class="breadcrumb-item active">Kelola</li> -->
+<!--         </ol> -->
+    </div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+
+    <div class="col-12" id="cardHeader">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title" hidden>Daftar Stok Barang</h3>
+                <p>Filter Pencarian</p>
+             <div class="row">
+<!--              <div class="col"> -->
+            	<div class="col">
+<!--             	<input type="text" class="form-control" id="cabangF" placeholder="Nama Cabang Toko"> -->
+                  <select class="form-control select2" style="width: 100%;" id="cabangF">
+						<option selected hidden value='0'> -- Pilih Cabang -- </option>
+					</select>
+<!--                   	</div> -->
+<!--                  <div class="input-group input-group-sm col-sm"> -->
+                  	</div>
+                  	<div class="col">
+                  	<select class="form-control select2" style="width: 100%;" id="barangF">
+						<option selected hidden value='0'> -- Pilih Barang -- </option>
+					</select>
+					</div>
+<!--                  </div> -->
+<!--                  <div class="input-group input-group-sm col-sm"> -->
+                  	<div class="col">
+                  	<select class="form-control select2" style="width: 100%;" id="variantF">
+						<option selected hidden value='0'> -- Pilih Variant -- </option>
+					</select>
+					</div>
+					<div class="col">
+                 <button class="btn btn-info btn-flat" onclick="tableStok.createByFilters()">Cari</button>
+                 <button class="btn btn-primary offset-md-1" onclick="tableStok.create()" id="resetFilter">Reset</button>
+                 
+                 </div>
+                
+<!--                 </div> -->
+<!--                 <div class="col col-lg-2"> -->
+<!--                 <button class="btn btn-primary" onclick="tableStok.create()" id="resetFilter">Reset</button> -->
+<!--             	</div> -->
+            	<div class="col">
+            	<a href="/histok"><button class="offset-md-3 float-right btn btn-secondary">History Stok</button></a>
+            	</div>
+            	<div class="col">
+            	<button class='float-right btn btn-success' id='btn-tambah-stok'><i class='fas fa-plus'></i>&nbsp;&nbsp;Tambah Stok</button>
+            	</div>
+            </div> <!-- row -->
+<!--                 <button class="float-right btn btn-success" id="btn-tambah-stok"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Stok</button> -->
+<!-- <!--                 <button class="float-right btn btn-primary" id="btn-tambah-kota">Tambah Kota/Kab</button> --> 
+            </div>
+<!-- <!--             /.card-header --> 
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableStok"
+                       style="width:100%"></table>
+            </div>
+<!--             /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+
+<!-- Modal stok SAVE/POST -->
+    <div class="modal fade" id="modal-stok" >
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">  <!-- nanti bikin 2 column -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Tambah Stok Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+
+<!--                     </div> -->
+                    <form id="form-stok" role="form">
+                        <input name="id" type="hidden"/>
+                        		<div class="row"> <!-- NEW -->
+                        		<div class="col">
+                        		<div class="form-group">
+									<label>Cabang Toko<font color="red"> *</font></label> 
+										<select required class="form-control select2" style="width: 100%;" id="selectIDalamatCabang" name="alamatCabang"
+										data-placeholder="-- Pilih Cabang --">
+										<option value='0' disabled selected> -- Pilih Cabang -- </option>
+									</select>
+								</div>
+								</div>
+                        		<div class="col">
+	                        		<div class="form-group">
+										<label>Barang<font color="red"> *</font></label>
+										<select required class="form-control select2" style="width: 100%;" id="selectIDbarang" name="namaBarang"
+										data-placeholder="-- Pilih Barang --">
+											<option value= '0' disabled selected> -- Pilih Barang -- </option>
+										</select>
+									</div>
+								</div> <!-- col -->
+									<div class="col">
+									<div class="form-group">
+										<label>Variant<font color="red"> *</font></label>
+										<select required class="form-control select2" style="width: 100%;" id="selectVariant" name="variantAja" 
+										data-placeholder="-- Pilih Variant Barang --">
+											<option value= '0' id='0' disabled selected> -- Pilih Variant Barang -- </option>
+										</select>
+									</div>
+									</div> <!-- col -->
+								</div> <!-- row -->
+								<div class="row"> <!-- NEW -->
+								<div class="col">
+									<div class="form-group">
+										<label>Status Kuantitas<font color="red"> *</font></label>
+										<select required class="form-control select2" disabled style="width: 100%;" id="status" name="status" 
+										data-placeholder="Masuk">
+	<!-- 										<option value='0' hidden selected> -- Pilih Status Stok -- </option> -->
+											<option value= 'Masuk' hidden selected>Masuk</option>
+	<!-- 										<option value= 'Keluar'>Keluar</option> -->
+										</select>
+									</div>
+									
+				                </div>
+					                <div class="col">
+									<div class="form-group">
+										<label>Gudang<font color="red"> *</font></label>
+										<select required class="form-control select2" style="width: 100%;" id="warehouse" name="gudang" 
+										data-placeholder="-- Pilih Gudang --">
+											<option value='0' hidden selected> -- Pilih Gudang -- </option>
+											<option value= 'Gd. Balaraja' >Gd. Balaraja</option>
+											<option value= 'Gd. Karadenan'>Gd. Karadenan</option>
+											<option value= 'Gd. Parung' >Gd. Parung</option>
+											<option value= 'Gd. Cileungsi' >Gd. Cileungsi</option>
+											<option value= 'Gd. Serang' >Gd. Serang</option>
+											<option value= 'Gd. Serang' >Gd. Karawang</option>
+											<option value= 'Gd. Serang' >Gd. Ciledug</option>
+										</select>
+									</div>
+									</div>
+								
+									<div class="col"> 
+										<div class="form-group">
+										<label>Kuantitas Stok Masuk<font color="red"> *</font></label> 
+										<input required type="number" class="form-control" id="quantity" name="kuantitas"
+											placeholder="Masukkan angka kuantitas stok">
+										</div>
+									</div>
+										
+									
+									<div class="col"> 
+									<div class="form-group">
+										<label>Tanggal Stok Masuk<font color="red"> *</font></label> 
+										<input required type="date" class="form-control" id="transDate" name="tglTransaksi">
+									</div>
+									</div>
+								</div> <!-- row -->	
+								<div class="row"> <!-- NEW2 -->			
+								<div class="col">
+								<div class="form-group">
+									<label>Keterangan<font color="black"> (optional)</font></label>
+									<textarea class="form-control" id="reason" name="alasan" rows="2" placeholder="Tuliskan keterangan stok jika ada..."></textarea>
+								</div>
+								</div>
+								</div> <!-- row -->
+                    </form>
+               
+               <!-- DATATABLE SEMENTARA -->
+               <div class="modal-footer "> <!-- justify-content-between -->
+				<button type="button" class="float-right btn btn-primary" onclick="stokBaru.save()"> <!-- id="simpan" -->
+					<i class="fas fa-plus"></i> Tambahkan Data</button>
+				</div>
+               <div class=" card card-body  card-outline table-responsive"> <!--card-body table-responsive --> <!-- table table-bordered table-hover nowrap -->
+               <!-- table table-striped table-bordered table-hover nowrap -->
+                <table class="table table-bordered table-hover nowrap" id="tableTambahStok"
+                       style="width:100%"></table>
+            </div>
+<!--             /.card-body -->
+               <!-- TAMBAHKAN DATA KE TABEL SEMENTARA -->
+                
+                
+                <!-- TABEL SEMENTARA -->
+<!--                 	<div class="card card-body card-success card-outline table-responsive"> -->
+<!-- 							<table class="table table-bordered table-hover nowrap" style="width: 100%"> -->
+<!-- 								<thead> -->
+<!-- 									<tr> -->
+<!-- 										<th>Cabang Toko</th> -->
+<!-- 										<th>Barang</th> -->
+<!-- 										<th>Variant</th> -->
+<!-- 										<th>Kuantitas</th> -->
+<!-- 										<th>Gudang</th> -->
+<!-- 										<th>Status</th> -->
+<!-- 										<th>Tanggal Transaksi</th> -->
+<!-- 										<th>Keterangan</th> -->
+<!-- 										<th>Action</th> -->
+<!-- 									</tr> -->
+<!-- 								</thead> -->
+<!-- 								<tbody id="tabel"></tbody> -->
+<!-- 							</table> -->
+<!-- 						</div> -->
+               
+                 </div>  <!--modal body -->
+                
+<!-- 						<div class="card-footer" hidden> -->
+<!-- 							<button type="button"  name="submit" -->
+<!-- 								class="float-right btn btn-success"> -->
+<!-- 								<i class="fas fa-save"></i> Simpan -->
+<!-- 							</button> -->
+<!-- 					</div> -->
+                
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-success toastrDefaultSuccess" onclick="stokBaru.saveAll()" type="button">
+                    			<i class="fas fa-save"></i>&nbsp;&nbsp;Save</button>
+<!--                     <button class="btn btn-primary" id="btn-edit-stok" type="button">Update</button> -->
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+<!-- Modal stok UPDATE/EDIT -->
+    <div class="modal fade" id="modal-stok2">
+        <div class="modal-dialog modal-xl"> <!-- modal-lg -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Pembaruan Jumlah Stok Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+<!--                     </div> -->
+                    <form id="form-stok2" role="form">
+                        <input name="id" type="hidden"/>
+                        
+                        		<div class="row"> <!-- NEW -->
+                        		<div class="col">
+                        		<div class="form-group">
+									<label>Cabang Toko<font color="red" hidden> *</font></label> 
+									<input disabled type="text" class="form-control" id="selCabang2" name="namaCabang">
+								</div>
+								</div>
+                        		<div class="col">
+	                        		<div class="form-group">
+										<label>Barang<font color="red" hidden> *</font></label>
+										<input disabled type="text" class="form-control" id="selBarang2" name="namaBarang">
+									</div>
+								</div> <!-- col -->
+									<div class="col">
+									<div class="form-group">
+										<label>Variant<font color="red" hidden> *</font></label>
+										<input disabled type="text" class="form-control" id="selVariant2" name="variantAja">
+									</div>
+									</div> <!-- col -->
+								</div> <!-- row -->                        
+                        
+								<div class="row"> <!-- NEW -->
+								<div class="col">
+								<div class="form-group">
+									<label>Jumlah Stok Saat Ini<font color="red" hidden> *</font></label> 
+									<input disabled type="number" class="form-control" id="jumlah2" name="jumlahStok">
+								</div>
+								</div>
+								
+								<div class="col">
+								<div class="form-group">
+									<label>Kuantitas Keluar/Masuk<font color="red"> *</font></label> 
+									<input required type="number" class="form-control" id="quantity2" name="kuantitas"
+										placeholder="Masukkan angka kuantitas stok">
+								</div>
+				                </div>
+				                <div class="col">
+								<div class="form-group">
+									<label>Gudang<font color="red"> *</font></label>
+									<select required class="form-control select2" style="width: 100%;" id="warehouse2" name="gudang" 
+									data-placeholder="-- Pilih Gudang --">
+										<option value='0' disabled selected> -- Pilih Gudang -- </option>
+										<option value= 'Gd. Balaraja' >Gd. Balaraja</option>
+										<option value= 'Gd. Karadenan'>Gd. Karadenan</option>
+										<option value= 'Gd. Parung' >Gd. Parung</option>
+										<option value= 'Gd. Cileungsi' >Gd. Cileungsi</option>
+										<option value= 'Gd. Serang' >Gd. Serang</option>
+										<option value= 'Gd. Serang' >Gd. Karawang</option>
+										<option value= 'Gd. Serang' >Gd. Ciledug</option>
+									</select>
+								</div>
+								</div>
+								</div> <!-- row -->
+								<div class="row"> <!-- NEW2 -->
+								<div class="col"> 
+								<div class="form-group">
+									<label>Status Kuantitas<font color="red"> *</font></label>
+									<select required class="form-control select2" style="width: 100%;" id="status2" name="status" 
+									data-placeholder="-- Pilih Status Stok --">
+										<option value='0' disabled selected> -- Pilih Status Stok -- </option>
+										<option value= 'Masuk' >Masuk</option>
+										<option value= 'Keluar'>Keluar</option>
+<!-- 										<option value= 'Keluar'>Keluar</option> -->
+									</select>
+								</div>
+								</div>
+								<div class="col"> 
+								<div class="form-group">
+									<label>Tanggal Masuk/Keluar<font color="red"> *</font></label> 
+									<input required type="date" class="form-control" id="transDate2" name="tglTransaksi">
+								</div>
+								</div>
+								</div> <!-- row -->
+								<div class="form-group">
+									<label>Keterangan/Alasan<font color="black"> (optional)</font></label>
+									<textarea class="form-control" id="reason2" name="alasan" rows="2" placeholder="Tuliskan keterangan/alasan stok jika ada..."></textarea>
+								</div>
+								
+								
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+<!--                     <button class="btn btn-primary" id="btn-save-stok" type="button">Save</button> -->
+                    <button class="btn btn-primary" id="btn-edit-stok" type="button">Update</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
+
+</div>
+
+
+<th:block layout:fragment="add-scripts">
+<!-- 	ganti file .js nya -->
+    <script th:src="@{/assets/dist/js/stok.js}"></script>
+<!--     <script th:src="@{/assets/dist/js/kota.js}"></script> -->
+
+    <script>
+        tableStok.create();
+        populateCombo3.getAllCabangFilter();
+//         tableStok.createByCabang();
+        $('.select2').select2();
+
+        $("#resetFilter").click(function(){
+        	$("#barangF").val('0').trigger('change');
+            $("#cabangF").val('0').trigger('change');
+            $("#variantF").val('0').trigger('change');
+        })
+
+// 		$('#cardHeader').prepend("<div class='card'><div class='card-header'>"+
+// 				"<h3 class='card-title'></h3>"+
+// 				"<button class='float-right btn btn-success' id='btn-tambah-stok'>"+
+// 				"<i class='fas fa-plus'></i>&nbsp;&nbsp;Tambah Stok</button></div></div>");  
+		
+        // bind parsley to the form
+        $("#form-stok").parsley();
+
+        // on form submit
+        $("#form-stok").on('submit', function(event) {
+            // validate form with parsley.
+            $(this).parsley().validate();
+        });
+        
+        $("#btn-tambah-stok").click(function () {
+        	$('#form-stok').parsley().reset();
+            formStok.resetForm();
+//             $("#tabel").empty();
+
+// 			var tglnow = new Date($.now());
+			
+			var dt = new Date();
+			var tglnow = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getDate(); 
+			
+			$("#transDate").val(tglnow);
+			
+            $('#modal-stok').modal('handleUpdate');
+            $('#modal-stok').modal('show');
+        });
+
+//         $("#btn-save-stok").click(function () {
+//             formStok.saveForm();
+//         });
+
+      //caution
+        //populateCombo4.getAllalamatCabang();
+         
+        
+        populateCombo.getAllBarang();
+        populateCombo3.getAllalamatCabang();
+
+        populateCombo.getAllBarangFilter();
+        
+        
+        $('#selectIDalamatCabang').select2()
+        $('#warehouse').select2()
+        $('#warehouse2').select2()
+        $('#status').select2()
+        
+        $("#selectIDbarang").change(function() {
+
+        	var idBar;
+        	$("#selectVariant").find('option').remove();
+        	$("#selectVariant").append('<option value= "0" id="0" hidden selected> -- Pilih Variant Barang -- </option>')
+        		
+        	idBar = $(this).find('option:selected').attr("id");
+		    console.log("idBar", idBar)
+
+		    populateComboVar.getVariants(idBar);
+        }).trigger("change");
+        
+        $("#barangF").change(function() {
+
+        	var idBar;
+        	$("#variantF").find('option').remove();
+        	$("#variantF").append('<option value= "0" id="0" hidden selected> -- Pilih Variant Barang -- </option>')
+        		
+        	idBar = $(this).find('option:selected').attr("id");
+		    console.log("idBar", idBar)
+
+		    populateComboVar.getVariantsFilter(idBar);
+        }).trigger("change");
+        
+   // TABEL SEMENTARA
+//    var i = 0;
+// 		currentRow = null;
+// 		var kumpulan = [];
+
+// 		$("#simpan").click(function() {
+// 							if ($('#form-stok').parsley().validate()) {
+
+// 								var selbar = document.getElementById("selectIDbarang"); 		// id="selectID" utk select option
+// 					            var idbar = selbar.options[selbar.selectedIndex].id;		// id dari option yg diselect/dipilih
+					            
+// 					            var selcab = document.getElementById("selectIDalamatCabang");
+// 					            var idcab = selcab.options[selcab.selectedIndex].id;
+					            
+// 					            var selvar = document.getElementById("selectVariant");
+// 					            var varval = selvar.options[selvar.selectedIndex].value;
+					            
+// 					            console.log( selbar.options[selbar.selectedIndex].value );
+// 					            console.log( selcab.options[selcab.selectedIndex].value );
+// 					            console.log(idbar, idcab, varval);
+					            
+// 					            var barval = selbar.options[selbar.selectedIndex].value;
+// 					            var cabval = selcab.options[selcab.selectedIndex].value;
+// 					            var varval = selvar.options[selvar.selectedIndex].value;
+// 					            var kuant = $("#quantity").val();
+// 					            var gudg = $("#warehouse").val();
+// 					            var status = $("#status").val();
+// 					            var tgl = $("#transDate").val();
+// 					            var alasan = $("#reason").val();
+
+// 								i++;
+// 								var table = "<tr class = 'rowStok' id ='row"+i+"'><td class = 'cabval'>"
+// 										+ cabval
+// 										+ "</td><td class = 'barval'>"
+// 										+ barval
+// 										+ "</td><td class = 'varval'>"
+// 										+ varval
+// 										+ "</td><td class = 'kuant'>"
+// 										+ kuant
+// 										+ "</td><td class = 'gudg'>"
+// 										+ gudg
+// 										+ "</td><td class = 'status'>"
+// 										+ status
+// 										+ "</td><td class = 'tgl'>"
+// 										+ tgl
+// 										+ "</td><td class = 'alasan'>"
+// 										+ alasan
+// 										+ "</td><td><span class='editrow'><a href='javascript: void(0);'><button class='btn btn-primary btn-sm'><i class='fas fa-edit'></i></button></a></span>"
+// 										+"<span class='deleterow'><a class='glyphicon glyphicon-trash' href='javascript:void(0)'><div class='btn-group'><button class='btn btn-danger btn-sm'><i class='fas fa-trash-alt'></i></button></div></a></span></td></tr>";
+// 								$('#form-stok').parsley().reset();
+								
+// 								//$('#formBiodata2').parsley().reset();
+// // 								"<button class='btn btn-primary btn-sm'><i class='fas fa-edit'></i></button>" +
+// //     			                                    		"<button class='btn btn-danger btn-sm' onclick=formStok.deleteData('" + data.idStok + "') id='del'><i class='fas fa-trash-alt'></i></button>"
+    			                                    
+
+// 								var isi = {
+// 					            		"idBarang" : idbar,
+// 					            		"idCabang" : idcab,
+// 					            		"variantAja" : varval,
+// 					            		"kuantitas" : kuant,
+// 					            		"gudang" : gudg,
+// 					            		"status" : status,
+// 					            		"tglTransaksi" : tgl,
+// 					            		"alasan" : alasan
+					            		
+// 					            };
+								
+// 							} // parsley
+							
+// 							kumpulan.push(isi);
+// 							console.log("isi", isi)
+// 							console.log("array kumpulan: ", kumpulan)
+							
+// 							if (currentRow) {
+// 								 $("#tabel").find($(currentRow)).replaceWith(table);
+//                                  currentRow = null;
+//                                 }
+//                                 else{
+//                                 $("#tabel").append(table);
+//                                 }
+// 							// reset form
+							
+// 							// for select option use find option value=0 instead.
+// // 				            $("#warehouse").val('');
+// // 				            $("#status").val('');
+// 							$("#selectIDbarang").val('0').trigger('change');
+// 					        $("#selectIDalamatCabang").val('0').trigger('change');
+// 					        $("#selectVariant").val('0').trigger('change');
+// 					        $("#warehouse").val('0').trigger('change');
+// 				            $("#transDate").val('');
+// 				            $("#reason").val('');
+// 				            $("#quantity").val('');
+// 						});
+
+// 		// 		Save data ke database
+// 		$('#submit').click(function() {
+// 			$("#tabel").empty();
+// 			formStok.saveAll(); 
+// 			kumpulan = [];
+// 			formStok.resetForm();
+// 		});
+
+// 		// 		hapus data di tabel sementara
+// 		var deleteRow;
+// 		$("#tabel").on("click", '.deleterow', (function() {
+// 			deleteRow = $(this).closest('tr').remove();
+// 			kumpulan.splice(deleteRow.index(), 1);
+// 			deleteRow.remove();
+
+// 			newRow = $('#tabel').find('.rowStok').length;
+// 			if (newRow < 1) {
+// 				$('#submit').prop('disabled');
+// 			} else {
+// 				$('#submit').removeAttr('disabled');
+// 			}
+// 		}));
+		
+// // 		var editRow;
+// 		 $(document).on('click', 'span.editrow', function () {
+// 		     currentRow= $(this).parents('tr');
+// 		     $("#selectIDbarang").val($(this).closest('tr').find('td.barval').text()).trigger('change');
+// 		     $("#selectIDalamatCabang").val($(this).closest('tr').find('td.cabval').text()).trigger('change');
+// 		     $("#selectVariant").val($(this).closest('tr').find('td.varval').text()).trigger('change');
+// 		     $("#quantity").val($(this).closest('tr').find('td.kuant').text());
+// 		     $("#warehouse").val($(this).closest('tr').find('td.gudg').text()).trigger('change');
+// 		     $("#status").val($(this).closest('tr').find('td.status').text());
+// 		     $("#transDate").val($(this).closest('tr').find('td.tgl').text());
+// 		     $("#reason").val($(this).closest('tr').find('td.alasan').text());
+		    
+// 		     kumpulan.splice(currentRow.index(), 1);
+// // 			 currentRow.remove();
+// 		 });
+
+		 
+    </script>
+</th:block>
+
+</html>

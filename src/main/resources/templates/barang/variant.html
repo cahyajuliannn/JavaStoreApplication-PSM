@@ -1,0 +1,373 @@
+ <!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Variant Barang</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="variant">Variant</a></li>
+            <li class="breadcrumb-item active">kelola</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title" hidden>Variant Barang</h3>
+                 <button class="float-right btn btn-success" id="btn-tambah-variant"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Variant</button>
+ 			<p>Filter Pencarian</p>
+             <div class="row">
+                <div class="input-group col-sm">
+                  <input type="number" class="form-control" id="hargaAwal" placeholder="Harga Awal">
+                  <span class="input-group-append">
+                  </span>
+                </div>
+                <div class="input-group col-sm">
+                  <input type="number" class="form-control" id="hargaAkhir" placeholder="Harga Akhir">
+                  <span class="input-group-append">
+                    <button type="button" class="btn btn-info btn-flat" onclick="tableVariant.createByFilters()">Cari</button>
+                  </span>
+                </div>
+                <button class="float-right btn btn-primary" onclick="tableVariant.create()">Reset</button>
+<!--                 <div class="input-group col-sm"> -->
+<!--                   <input type="number" class="form-control" id="hargaAsc" name="hargaJual" placeholder="Harga Akhir"> -->
+<!--                   <span class="input-group-append"> -->
+<!--                     <button type="button" class="btn btn-info btn-flat" onclick="tableVariant.forAsc()">Cari</button> -->
+<!--                   </span> -->
+<!--                 </div> -->
+<!--                 <button class="float-right btn btn-primary" onclick="tableVariant.create()">Reset</button> -->
+            </div> <!-- row -->
+                <!-- /input-group -->
+<!--                 <button class="float-right btn-primary" id="btn-tambah-variant">Tambah</button> -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableVariant"
+                       style="width:100%"></table>
+            </div>
+            <p id="demo"> </p>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    
+<!-- Modal Variant SAVE/POST -->
+        <div class="modal fade" id="modal-variant" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Variant Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-variant" role="form">
+                        <input name="idVariant" type="hidden"/>
+                        <input name="idBarang" type="hidden" />
+                        
+
+	                        <div class="form-group">
+	                            <label>Nama Variant : </label>
+	                            <input class="form-control" id="namaVariant" name="namaVariant"
+	                                   placeholder="misalkan (ukuran, rasa, ...)" required type="text">
+                         	</div>
+	                        <div class="form-group">
+	                        	<label>Nilai : </label>
+	                            <input class="form-control" id="nilai" name="nilai"
+	                                   placeholder="masukan nilai yang Anda maksud" required type="number">
+	                         </div>
+                         	<div class="form-group">
+	                            <label>Satuan : </label>
+	                            <input class="form-control" id="satuan" name="satuan"
+	                                   placeholder="misalkan (kg, rim, ...)" required type="text">
+                         	</div>
+                       		<div class="form-group">
+		                    <label>Nama Barang : </label>
+		                       <select class="form-control select2" style="width: 100%;" id="namaBarang" name="namaBarang" required>
+		                               <option value="0" hidden selected> -- Pilih Barang -- </option>
+		                       </select>									
+		                 	</div>
+		                 	<div class="form-group">
+	                            <label>Harga Beli : </label>
+	                            <input class="form-control" id="hargaBeli" name="hargaBeli"
+	                                   placeholder="Harga Beli" required type="number">
+                         	</div>
+                         	<div class="form-group">
+	                            <label>Harga Jual : </label>
+	                            <input class="form-control" id="hargaJual" name="hargaJual"
+	                                   placeholder="Harga Jual" required type="number">
+                         	</div>
+                         	<div class="card">
+							<button id="ok"  class="btn btn-default">Submit</button>
+					
+						</div>  
+						<div class="row">
+							<div class="col-12">
+								<div class="card">
+							
+								<div class="card-header">
+									<h3 class = "card-title">Tabel Variant</h3>
+									<div class="card-tools">
+					                  <div class="input-group input-group-sm" style="width: 150px;">
+					                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+					
+					                    <div class="input-group-append">
+					                      <button class="btn btn-default"><i class="fas fa-search"></i></button>
+					                    </div>
+					                  </div>
+					                </div>
+									</div>
+										<div class="card-body table-responsive p-0" style="height: 300px;">
+											<table id="tableSementara" class="table table-head-fixed">
+												<thead>
+												<tr>
+													<th >Nama Variant</th>
+													<th >Nilai</th>
+													<th >Satuan</th>
+													<th >Nama Barang</th>
+													<th >Harga Beli</th>
+													<th >Harga Jual</th>
+													<th >Keuntungan</th>
+													<th>Action</th>
+												</tr>
+												</thead>
+												<tbody id="tabel"></tbody>
+											</table>		
+										</div>
+									<br>
+									
+								</div>	
+							</div>
+					
+					</div>                    	
+		                 	                        
+                   	 	</form>
+                	</div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-success toastrDefaultSuccess" id="btn-save-variant" type="button" disabled><i class="fas fa-save"></i>&nbsp;&nbsp;Save</button>
+                 
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+<!-- Modal UPDATE Kategori Barang -->
+        <div class="modal fade" id="modal-variant2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Kategori Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-variant2" role="form">
+                        <input name="idVariant" id = "idUniq" type="hidden"/>
+                        <input name="idBarang" id="kodeUniq" value="1" type="hidden" />
+                        
+                        <div class="form-group">
+	                            <label>Nama Variant : </label>
+	                            <input class="form-control" id="namaVariant2" name="namaVariant"
+	                                   placeholder="misalkan (ukuran, rasa, ...)" required type="text">
+                         	</div>
+                        <div class="form-group">
+                       		<label>Nilai : </label>
+                            <input class="form-control" id="nilai2" name="nilai"
+                                   placeholder="masukan nilai yang Anda maksud" required type="number">
+                        </div>
+                         <div class="form-group">
+                            <label>Satuan : </label>
+                            <input class="form-control" id="satuan2" name="satuan"
+                                   placeholder="misalkan (kg, rim, ...)" required type="text">
+                        </div> 
+                        <div class="form-group">
+		                    <label>Nama Barang : </label>
+		                       <select class="form-control select2" style="width: 100%;" id="namaBarang2" name="namaBarang" required>
+		                               <option value="0" selected> -- Pilih Barang -- </option>
+		                       </select>									
+		                 </div>
+		                 <div class="form-group">
+	                            <label>Harga Beli : </label>
+	                            <input class="form-control" id="hargaBeli2" name="hargaBeli"
+	                                   placeholder="Harga Beli" required type="number">
+                         	</div>
+                         	<div class="form-group">
+	                            <label>Harga Jual : </label>
+	                            <input class="form-control" id="hargaJual2" name="hargaJual"
+	                                   placeholder="Harga Jual" required type="number">
+                         	</div>   
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-edit-variant" type="button">Update</button>
+                 
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+           
+</div>
+<!-- d -->
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/variant.js}"></script>
+
+    <script>
+    selopBarang.getAllBarang();
+//     selopBarangEdit.getAllBarang();
+	$(".select2").select2();
+    tableVariant.create();
+    
+        $('#btn-tambah-variant').click(function () {
+        	nomorRow = 0;	
+			variant=[];
+            formVariant.resetForm();
+            $('#btn-save-variant').removeAttr('disabled');
+            $('#modal-variant').modal('show')
+        });
+
+		$("#ok").click(function(e) {
+			e.preventDefault();
+			$('#btn-save-variant').removeAttr('disabled');
+			if ($('#form-variant').parsley().validate()) {
+	            var dataResult = getJsonForm($("#form-variant").serializeArray(), true);
+	
+	            			var namaVariant = $("#namaVariant").val();
+	            			var nilai = $("#nilai").val();
+	            			var satuan = $("#satuan").val();
+	            			var namaBarang = $("#namaBarang").val();
+	            			var hargaBeli = $("#hargaBeli").val();
+	            			var hargaJual = $("#hargaJual").val();
+	            			var keuntungan = hargaJual-hargaBeli;
+	            			
+	            			var uniq = $("#idUniq").val();
+	            			var table = "<tr class='rowVariant' id='tr"+nomorRow+"'><td class = 'namaVariant'>"
+	            					+ namaVariant
+	            					+ "</td><td class = 'nilai'>"
+	            					+ nilai
+	            					+ "</td><td class = 'satuan'>"
+	            					+ satuan
+	            					+ "</td><td class = 'namaBarang'>"
+	            					+ namaBarang
+	            					+ "</td><td class = 'hargaBeli'>"
+	            					+ hargaBeli
+	            					+ "</td><td class = 'hargaJual'>"
+	            					+ hargaJual
+	            					+ "</td><td class = 'keuntungan'>"
+	            					+ keuntungan
+	            					+ "</td><td><span class='edited'><a data-toggle='tooltip' title='Edit' class='fa fa-edit' style='font-size:18px;color:blue;' href='javascript: void(0);'></a></span>&nbsp&nbsp<td><span class='deleted'><a data-toggle='tooltip' title='Delete!' class='fa fa-trash' style='font-size:18px;color:red;' href='javascript: void(0);'></a></span></td></tr>";
+// 	            					<td><span class='edited'><a data-toggle='tooltip' title='Edit' class='fa fa-edit' style='font-size:18px;color:blue;' href='javascript: void(0);'></a></span>
+	            					var b = document.getElementById("namaBarang");
+		            	        	var id = b.options[b.selectedIndex].id;
+	            			 var dataVariant = {
+	            					"namaVariant" : namaVariant,
+	            					"nilai" : nilai,
+	            					"satuan" : satuan,	    
+            						"namaBarang": namaBarang,
+	            					"hargaBeli" : hargaBeli,
+	            					"hargaJual" : hargaJual,
+	            					"keuntungan" : keuntungan,
+	            					"barang" : {
+	            						"idBarang" : id,
+// 	            						"idBarang" : $("#kodeuniq").val() ini salah harusnya namaBarang, kalo ngambil dr kodeuniq valnya 1, idBrang kan B_1h
+	            					}
+	            			 
+	            					
+	            			};
+	            
+	            		 	variant.push(dataVariant); 
+
+	            		 	if(row) {
+	            				$("#tableSementara").find($(row)).replaceWith(table);
+	            				row = null;
+	            			} else {
+	            				$("#tableSementara").append(table);
+	            			}
+	            		 	// reset form
+	            			$("#namaVariant").val('');
+	            			$("#nilai").val('');
+	            			$("#satuan").val('');
+	            			$("#hargaBeli").val('');
+	            			$("#hargaJual").val('');
+	            			$("#namaBarang").val('0').trigger('change');
+	            			$("#namaBarang").val('');
+	            			
+	            			$('#form-variant')[0].reset();
+	            			$('#form-variant').parsley().reset();
+	            			nomorRow++;
+	            			
+			}
+			 
+			else {
+				
+			}
+
+		});
+		// 		Save data ke database
+		$('#btn-save-variant').click(function() {
+			$("#tabel").empty();
+			formVariant.saveAll(); 
+			variant = [];
+			formVariant.resetForm();
+		});
+		//edit data pada table sementara
+		 $("#tableSementara").on('click', ".edited", function() {
+			 row = $(this).parents('tr');
+				$("#namaVariant").val($(this).closest('tr').find('td.namaVariant').text());
+				$("#nilai").val($(this).closest('tr').find('td.nilai').text());
+				$("#satuan").val($(this).closest('tr').find('td.satuan').text());
+				$("#namaBarang").val($(this).closest('tr').find('td.namaBarang').text());
+				$("#hargaBeli").val($(this).closest('tr').find('td.hargaBeli').text());
+				$("#hargaJual").val($(this).closest('tr').find('td.hargaJual').text());
+				
+				variant.splice(row.index(), 1);
+				toastr.info("Silakan Edit Data yang Anda Pilih");
+				$('#btn-save-variant').prop('disabled', true);
+			});
+		
+		//delete data pada table sementara
+		$("#tableSementara").on("click", ".deleted", function() {
+			deleteRow = $(this).parents('tr');
+			variant.splice(deleteRow.index(),1);// 
+			deleteRow.remove();//
+			
+			jumlahRowBaru = $('#tableSementara').find('.rowVariant').length;//ini buat disable button
+			if(jumlahRowBaru < 1){
+				//disable button save
+				//button save nya yang mana, taruh sini
+				$('#btn-save-variant').prop('disabled');
+			} else {
+				//jangan lupa dienable disini enable gmna caranya?
+				$('#btn-save-variant').removeAttr('disabled'); // kalo gua gini, ga tau pake toast mah oke prop sama remove itu apaan?, prop itu ngasih attribute
+						
+			}
+			//cba delete lagi
+			//nomorRow = nomorRow - 1; //makanya ni gua bilang jangan di apa"in
+			console.log(nomorRow);// ga kepake skrg nomorRow
+		});
+
+
+    </script>
+</th:block>
+
+</html>
+
+

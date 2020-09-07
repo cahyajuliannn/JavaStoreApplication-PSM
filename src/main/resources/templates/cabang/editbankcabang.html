@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html layout:decorate="~{base}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+
+
+
+<div class="row mb-2" layout:fragment="content-header">
+	<div class="col-sm-6">
+		<strong>
+		<h1 class="m-0 text-dark">UPDATE BANK</h1>
+		</strong>
+	</div>
+	<div class="col-sm-6">
+		<ol class="breadcrumb float-sm-right">
+			<li class="breadcrumb-item"><a href="/toko">Toko</a></li>
+			<li class="breadcrumb-item active"><a href="/cabang3">Home</a></li>
+		</ol>
+
+<!-- 		<div class="input-group input-group-sm col-sm"> -->
+<!-- 			<select class="form-control" style="width: 80%;" -->
+<!-- 				id="filterStatus"> -->
+<!-- 				<option selected hidden>-- Pilih Status --</option> -->
+<!-- 				<option value="Aktif">Aktif</option> -->
+<!-- 				<option value="NonAktif">Non Aktif</option> -->
+<!-- 			</select> -->
+<!-- 			<!--                   	<span class="input-group-append"> -->
+<!-- 			<button class="btn btn-info btn-flat" -->
+<!-- 				onclick="tableHistok.createByStatus()">Cari</button> -->
+<!-- 			<!--                   	</span> -->
+<!-- 		</div> -->
+
+
+	</div>
+</div>
+
+<section class="content" layout:fragment="content-body">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card card-success">
+					<div class="card-header">
+						<h3 class="card-title"><i class="fas fa-money-bill-wave"></i>   Update Data Bank</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+							<button type="button" class="btn btn-tool"
+								data-card-widget="remove">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-12">
+								<form role="form" id="formBank">
+
+									<div class="form-group">
+										<label for="Fullname">Id Akun</label> <input required
+											type="text" class="form-control" id="idAkun"
+											name="idAkun" disabled>
+									</div>
+
+									<div class="form-group">
+										<label for="alamatCabang">Nomor Rekening</label> <input
+											required type="number" class="form-control" id="noRekening"
+											name="noRekening">
+									</div>
+
+									<div class="form-group">
+										<label>Nama Bank</label>
+										<div class="select2-puple">
+											<select class="form-group select2" id="bank"
+												data-dropdown-css-class="select2-purple"
+												style="width: 100%;" required>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label>Atas Nama</label> <input required type="text"
+											nama="namaPemilik" class="form-control" id="namaPemilik" placeholder = "Nama Pemilik Rekening..">
+									</div>
+								</form>
+
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button type="button" id="update" name="update"
+					class="btn btn-primary">Update Data</button>
+			</div>
+
+		</div>
+		<!-- /.card-body -->
+	</div>
+
+	<div class="card-body table-responsive">
+		<table class="table table-striped" id="tableBank"
+			style="width: 100%"></table>
+	</div>
+
+</section>
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/cabang.js}"></script>
+
+	<script>
+// 		$('#filterStatus').select2();
+		tableBank.create();
+	</script>
+
+</th:block>
+
+</html>
+

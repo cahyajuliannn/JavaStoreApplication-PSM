@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">History Keluar Masuk Stok Barang</h1>
+    </div>
+    <div class="col-sm-6">
+<!--         <ol class="breadcrumb float-sm-right"> -->
+<!--             <li class="breadcrumb-item"><a href="#">History Stok Barang</a></li> -->
+<!--             <li class="breadcrumb-item active">Kelola</li> -->
+<!--         </ol> -->
+    </div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title" hidden>History Keluar Masuk Stok Barang</h3>
+<!--                 <button class="float-right btn btn-success" id="btn-tambah-histok"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Histok</button> -->
+            
+            <p>Filter Pencarian</p>
+             <div class="row">
+            	<div class="input-group col-sm"> <!-- input-group-sm  -->
+                  <select class="form-control select2" style="width: 50%;" id="selectStatus">
+						<option selected hidden value='0'> -- Pilih Status -- </option>
+						<option value="Masuk">Masuk</option>
+						<option value="Keluar">Keluar</option>
+					</select>
+					<input type="text" class="form-control" id="barangF" placeholder="Nama Barang">
+<!--                   	<span class="input-group-append"> -->
+                  	<button class="btn btn-info btn-flat" onclick="tableHistok.createByStatus()">Cari</button>
+<!--                   	</span> -->
+                </div>
+<!--                 <div class="input-group col-sm"> -->
+                  
+<!--                   <span class="input-group-append"> -->
+<!--                   </span> -->
+<!--                 </div> -->
+                <div class="input-group col-sm">
+                  <input type="date" class="form-control" id="startDate">
+                  <input type="date" class="form-control" id="endDate">
+                  <span class="input-group-append">
+                    <button type="button" class="btn btn-info btn-flat" onclick="tableHistok.createByDate()">Cari</button>
+                  </span>
+                </div>
+                <button class="float-right btn btn-primary" onclick="tableHistok.create()" id="resetFilter">Reset</button>
+                <div class="col sm-3 off-md-3">
+            	<a href="/stok"><button class="float-right btn btn-secondary">Data Stok Barang</button></a>
+            	</div>
+            </div> <!-- row -->
+                <!-- /input-group -->
+            
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableHistok"
+                       style="width:100%"></table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+
+<!-- Modal stok SAVE/POST -->
+    
+
+<!-- Modal stok UPDATE/EDIT -->
+    <div class="modal fade" id="modal-stok2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ubah Histok</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+
+<!--                     </div> -->
+                    <form id="form-stok2" role="form">
+                        <input name="id" type="hidden"/>
+                        		<div class="form-group">
+									<label>Nama Barang</label>
+									<select class="form-control select2" style="width: 100%;" id="selectIDbarang2" name="namaBarang">
+										<option value="0" selected hidden> -- Pilih Barang -- </option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Jumlah Histok</label> <input
+										required type="number" class="form-control" id="amount2" name="jumlahHistok"
+										placeholder="Masukkan angka jumlah stok">
+								</div>
+								<div class="form-group">
+									<label>Cabang Toko</label> 
+										<select class="form-control select2" style="width: 100%;" id="selectIDalamatCabang2" name="alamatCabang">
+										<option value="0" selected hidden> -- Pilih Cabang -- </option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Gudang</label> 
+										<select class="form-control select2" style="width: 100%;" id="warehouse2" name="gudang" data-placeholder="Pilih Gudang">
+										<option value='0' disabled selected> -- Pilih Gudang -- </option>
+										<option value= 'Gd. Balaraja' >Gd. Balaraja</option>
+										<option value= 'Gd. Karadenan'>Gd. Karadenan</option>
+										<option value= 'Gd. Parung' >Gd. Parung</option>
+										<option value= 'Gd. Cileungsi' >Gd. Cileungsi</option>
+										<option value= 'Gd. Serang' >Gd. Serang</option>
+										</select>
+								</div>
+								
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+<!--                     <button class="btn btn-primary" id="btn-save-stok" type="button">Save</button> -->
+                    <button class="btn btn-primary" id="btn-edit-stok" type="button">Update</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+	<!-- modal kota -->
+	<div class="modal fade" id="modal-kota">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Kota/Kabupaten</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+<!--                     <div class="card-header"> -->
+
+<!--                     </div> -->
+                    <form id="form-kota" role="form">
+                        <input name="id" type="hidden"/>
+                        	<div class="form-group">
+									<label>Kota/Kabupaten</label> 
+									<input required type="text" class="form-control" id="kota" name="kota"
+										placeholder="Masukkan nama kota/kabupaten di Indonesia">
+							</div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button type="button" class="btn btn-primary" id="btn-save-kota">Save</button>
+                    
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+       
+    </div>
+
+</div>
+
+
+<th:block layout:fragment="add-scripts">
+<!-- 	ganti file .js nya -->
+    <script th:src="@{/assets/dist/js/histstok.js}"></script>
+
+    <script>
+        tableHistok.create();
+
+        $(".select2").select2();
+        
+        $("#resetFilter").click(function(){
+
+        	$("#selectStatus").val('0').trigger('change');
+            $("#startDate").val('').trigger('change');
+            $("#endDate").val('').trigger('change');
+        })
+        
+//         $('#startDate').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' });
+//         $('#endDate').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' });
+//         $("#btn-tambah-histok").click(function () {
+//         	$('#form-histok').parsley().reset();
+//             formHistok.resetForm();
+//             $('#modal-histok').modal('show');
+//         });
+
+//         $("#btn-save-histok").click(function () {
+//             formHistok.saveForm();
+//         });
+
+//         populateCombo.getAllBarang();
+//         populateCombo3.getAllalamatCabang();
+        
+//         $('#selectIDalamatCabang').select2()
+//         $('#warehouse').select2()
+//         $('#warehouse2').select2()
+        
+    </script>
+</th:block>
+
+</html>

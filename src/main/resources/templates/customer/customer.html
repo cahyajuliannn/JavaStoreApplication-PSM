@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html layout:decorate="~{base}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+	<div class="col-sm-6">
+		<h1 class="m-0 text-dark">Customer</h1>
+	</div>
+	<div class="col-sm-6">
+		<ol class="breadcrumb float-sm-right">
+			<li class="breadcrumb-item"><a href="register/user">User</a></li>
+			<li class="breadcrumb-item active">Kelola</li>
+		</ol>
+	</div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+	
+	
+  <div class = "col-md-12">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">List Customer</h3>
+				<button class="float-right btn-primary" id="btn-tambah-customer">Tambah Member</button>
+			</div>
+			<!-- /.card-header -->
+		<div class="card-body table-responsive">
+		<div>
+			<button data-toggle="tooltip" title="Reset Search" onclick="tableCustomer.create()" class="float-right btn btn-default" id="btn-reset-search">Reset</button>
+				</div>
+				<div class="input-group input-group-sm" style="width: 600px;">
+                   <input required type="text" id="inputFilterNama" class="form-control float-right" placeholder="Nama Lengkap">
+					<div class="input-group-append">
+                    </div>
+                    <br>
+                   <input required type="text" id="inputFilterKota" class="form-control float-right" placeholder="Kota / Kabupaten">
+					<div class="input-group-append">
+                    </div>
+                    
+					<div class="input-group-append">
+                      <button onclick="tableCustomer.filterable()" id="filterable" type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>               
+                    </div>
+                 </div>
+                 <br>
+			<table class="table table-striped table-bordered table-hover nowrap"
+				id="tableCustomer" style="width: 100%"></table>
+		</div>
+			
+	</div>
+		<!-- /.card -->
+	</div>
+	<!-- /.col -->
+  </div>
+
+
+	<div class="modal fade" id="modal-customer">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Form customer</h4>
+					<button aria-label="Close" class="close" data-dismiss="modal"
+						type="button">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="form-customer" role="form">
+						<input id="idBiodata" name="idBiodata" type="hidden" />
+						<input id="idCustomer" name="idCustomer" type ="hidden" />
+						<input id="idAkun" name="idAkun" type="hidden" />
+						<input id="idBank" name="idBank" type ="hidden" />
+						<input name="idContact" type = "hidden" />
+						
+						<div class = "row">
+						<div class = "col">
+						<div class="form-group">
+							<label>Nama Lengkap : </label> <input class="form-control"
+								id="nama" name="namaLengkap" placeholder="Nama" required
+								type="text">
+						</div>
+						<div class="form-group">
+							<label>Kota / Kabupaten</label>
+							<select class="form-control" id="mySelect" name="kotaLokasi"></select>
+						</div>
+						<div class="form-group">
+							<label>Bank</label>
+							<select class="form-control" id="mySelectBank" name="namaBank"></select>
+						</div>
+						<div class="form-group">
+							<label>Tanggal Bergabung</label>
+							<input class = "form-control" id="tglMasuk" 
+								name="tglMasuk" required type ="date">
+						</div>
+						
+<!-- pemisah -->		</div>
+						<div class = "col">
+						<div class="form-group">
+							<label>Tanggal Lahir : </label> 
+							<input class="form-control" id="birthDate"
+								name="tglLahir" required type="date">
+						</div>
+						<div class="form-group">
+							<label>Alamat : </label> <input class="form-control" id="address"
+								name="alamat" placeholder="Masukkan Alamat" required
+								type="text">
+						</div>
+						<div class="form-group">
+							<label>No Rekening : </label> <input class="form-control" id="noAccountBank"
+								name="noRekening" placeholder="Masukkan No Rekening" required
+								type="text">
+						</div>
+						<div class="form-group">
+							<label>Expired Membership</label>
+							<input class = "form-control" id="tglKeluar" 
+								name="tglKeluar" required type ="date">
+						</div>
+						
+					</div>
+<!-- akhir -->	</div>
+						
+						<!-- <div class="form-group">
+							<select class = form-control id = "mySosmed" name ="jenisContact"></select>
+						</div> -->
+			
+	<div class="modal-body">
+	   <!-- <div class="container mt-3">	 -->			 
+		  <div id="accordion">	
+			<div class="card">
+			<div class="card-header">
+                <a class="card-title" data-toggle="collapse" href="#collapseThree">
+                  Tambah Kontak
+                </a>
+              </div>
+              <div id="collapseThree" class="collapse" data-parent="#accordion">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#noHpDaftar" data-toggle="tab">No HP</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#emailDaftar" data-toggle="tab">Email</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#facebookDaftar" data-toggle="tab">Facebook</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#twitterDaftar" data-toggle="tab">Twitter</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#instagramDaftar" data-toggle="tab">Instagram</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content" id="tabs">
+                  <div class="active tab-pane" id="noHpDaftar">
+                      <input class="form-control form-control-sm" type="text" placeholder="Input your phone number" id="noHpIsi" name ="noHandphone"><br>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="emailDaftar">
+                  	<input class ="form-control form-control-sm" type="email" placeholder="Input your email here" id ="emailIsi" name="email"><br>
+                  </div>
+                  <div class="tab-pane" id="facebookDaftar">
+                  	<input class ="form-control form-control-sm" type="text" placeholder="Input your username here" id="facebookIsi" name="facebookCP"><br>
+                  </div>
+                  <div class="tab-pane" id="twitterDaftar">
+                  	<input class ="form-control form-control-sm" type="text" placeholder="Input your username here" id="twitterIsi" name="twitterCP"><br>
+                  </div>
+                  <div class="tab-pane" id="instagramDaftar">
+                  	<input class ="form-control form-control-sm" type="text" placeholder="Input your username here" id="instagramIsi" name="instagramCP"><br>
+                  </div>
+                </div>
+                <button onClick = "validateForm()" class = "btn btn-primary" id = "btn-save-sementara" type = "button">Save</button>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div></div></div></div><!-- </div> -->
+            <!-- /.nav-tabs-custom -->
+            		<div class="row">
+							<div class="col-12">
+								<div class="card">
+								<div class="card-header">
+									<h3 class = "card-title">Tabel Contact Person</h3>
+									<div class="card-tools">
+					                  <div class="input-group input-group-sm" style="width: 150px;">
+					                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+					
+					                    <div class="input-group-append">
+					                      <button class="btn btn-default"><i class="fas fa-search"></i></button>
+					                    </div>
+					                  </div>
+					                </div>
+									</div>
+									
+										<div class="card-body table-responsive">
+											<table id="tableSementara" class="table table-striped table-bordered table-hover nowrap" style="width: 100%">
+												<thead>
+												<tr>
+													<th >Jenis Kontak</th>
+													<th >Data</th>	
+													<th>Action</th>
+												</tr>
+												</thead>
+												<tbody></tbody>
+											</table>		
+										</div>
+									<br>
+								</div>	
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+					<button class="btn btn-primary" id="btn-save-customer"type="button">Save</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<!-- modal edit -->
+	<div class="modal fade" id="modal-customerEdit">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Form customer</h4>
+					<button aria-label="Close" class="close" data-dismiss="modal"
+						type="button">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="form-customerEdit" role="form">
+						<input id="idBiodataEdit" name="idBiodata" type="hidden" />
+						<input id="idCustomerEdit" name="idCustomer" type ="hidden" />
+						<input id="idAkunEdit" name = "idAkun" type = "hidden" />
+						<input name="idContactEdit" type = "hidden" />
+						
+						<div class = "row">
+						<div class = "col">
+						<div class="form-group">
+							<label>Nama Lengkap : </label> <input class="form-control"
+								id="namaEdit" name="namaLengkap" placeholder="Nama" required
+								type="text">
+						</div>
+						
+						<div class="form-group">
+							<label>Kota / Kabupaten</label>
+							<select class="form-control" id="mySelectEdit" name="kotaLokasi"></select>
+						</div>
+						<div class="form-group">
+							<label>Bank</label>
+							<select class="form-control" id="mySelectBankEdit" name="namaBank"></select>
+						</div>
+						
+						<div class="form-group">
+							<label>Tanggal Bergabung</label>
+							<input class = "form-control" id="tglMasukEdit" 
+								name="tglMasuk" required type ="date">
+						</div>
+						
+						</div>
+						<div class = "col">
+						<div class="form-group">
+							<label>Tanggal Lahir : </label> 
+							<input class="form-control" id="birthDateEdit"
+								name="tglLahir" required type="date">
+						</div>
+						
+						<div class="form-group">
+							<label>Alamat : </label> <input class="form-control" id="addressEdit"
+								name="alamat" placeholder="Masukkan Alamat" required
+								type="text">
+						</div>
+
+						<div class="form-group">
+							<label>No Rekening : </label> <input class="form-control" id="noAccountBankEdit"
+								name="noRekening" placeholder="Masukkan No Rekening" required
+								type="text">
+						</div>
+						
+						<div class="form-group">
+							<label>Expired Membership</label>
+							<input class = "form-control" id="tglKeluarEdit" 
+								name="tglKeluar" required type ="date">
+						</div>
+					</div></div>
+						<!-- <div class="form-group">
+							<select class = form-control id = "mySosmed" name ="jenisContact"></select>
+						</div> -->
+						
+			<div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#noHpDaftarEdit" data-toggle="tab">No HP</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#emailDaftarEdit" data-toggle="tab">Email</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#facebookDaftarEdit" data-toggle="tab">Facebook</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#twitterDaftarEdit" data-toggle="tab">Twitter</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#instagramDaftarEdit" data-toggle="tab">Instagram</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content" id="tabsEdit">
+                  <div class="active tab-pane" id="noHpDaftarEdit">
+                      <input class="form-control form-control-sm" type="text" placeholder="Input your phone number" id="noHpIsiEdit" name ="noHandphone"><br>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="emailDaftarEdit">
+                  	<input class ="form-control form-control-sm" type="email" placeholder="Input your email here" id ="emailIsiEdit" name="email"><br>
+                  </div>
+                  <div class="tab-pane" id="facebookDaftarEdit">
+                  	<input class ="form-control form-control-sm" type="text" placeholder="Input your username here" id="facebookIsiEdit" name="facebookCP"><br>
+                  </div>
+                  <div class="tab-pane" id="twitterDaftarEdit">
+                  	<input class ="form-control form-control-sm" type="text" placeholder="Input your username here" id="twitterIsiEdit" name="twitterCP"><br>
+                  </div>
+                  <div class="tab-pane" id="instagramDaftarEdit">
+                  	<input class ="form-control form-control-sm" type="text" placeholder="Input your username here" id="instagramIsiEdit" name="instagramCP"><br>
+                  </div>
+                </div>
+                <button class = "btn btn-primary" id = "btn-save-sementaraEdit" type = "button">Tambah Contact Baru</button>
+                <button class = "btn btn-primary" id = "btn-edit-tableContact" type = "button">Edit Contact Sebelumnya</button>
+                <button class="btn float-right btn-primary" id="btn-save-customerEdit"type="button">Save</button>
+                <input id = "idButton" name = "idTombol" type = "hidden">
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+         
+            <!-- /.nav-tabs-custom -->
+            <div class="row">
+							<div class="col-12">
+								<div class="card">
+							
+								<div class="card-header">
+									<h3 class = "card-title">Tabel Contact Person</h3>
+									<div class="card-tools">
+					                  <div class="input-group input-group-sm" style="width: 150px;">
+					                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+					
+					                    <div class="input-group-append">
+					                      <button class="btn btn-default"><i class="fas fa-search"></i></button>
+					                    </div>
+					                  </div>
+					                </div>
+									</div>
+									
+										<div class="card-body table-responsive">
+											<table id="tableSementaraEdit" class="table table-striped table-bordered table-hover nowrap" style="width: 100%">
+												<thead>
+												<tr>
+													<th >Jenis Kontak</th>
+													<th >Data</th>	
+												</tr>
+												</thead>
+												<tbody></tbody>
+											</table>		
+										</div>
+									<br>
+								</div>	
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+<div class="modal fade" id="modal-tampil">
+		<div class="modal-dialog modal-md ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">Customer</h3>
+					<button aria-label="Close" class="close" data-dismiss="modal"
+						type="button">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="col-md-12">
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <h1> Biodata </h1>
+                </div>
+
+                <h2 class="profile-username text-center" id = "akunNama"></h2>
+                <p class="text-muted text-center">Customer</p>
+                </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-body">
+              <div class = "row">
+              <div class = "col">
+              <strong><i class="fas fa-user mr-1"></i> Nama</strong>
+                <p class="text-muted" id = "akunNama3"></p>
+                <hr>
+              <strong><i class="fas fa-book mr-1"></i> Domisili</strong>
+                <p class="text-muted" id = "kotaLokasi3"></p>
+                <hr>
+              <strong><i class="fas fa-calendar mr-1"></i> Tanggal Bergabung </strong>
+                <p class="text-muted" id = "tglMasuk3"></p>
+                <hr>
+                
+                
+                </div>
+                
+                <div class = "col">
+                <strong><i class="fas fa-birthday-cake mr-1"></i> Tanggal Lahir</strong>
+                <p class="text-muted"  id = "birthDate3"></p>
+                <hr>
+                
+                <strong><i class="fas fa-book mr-1"></i> Alamat</strong>
+                <p class="text-muted" id = "address3"></p>
+                <hr>
+                
+                <strong><i class="fas fa-calendar mr-1"></i> Member Expired</strong>
+                <p class="text-muted" id = "tglKeluar3"></p>
+                <hr>
+                </div>
+                </div>
+                </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+					
+					
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- pembatas form tampilan -->
+	<div class="modal fade" id="modal-tableEdit">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Your Contact Info</h4>
+					<button aria-label="Close" class="close" data-dismiss="modal"
+						type="button">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="card-header">
+					<h3 class = "card-title">Edit Kontak Anda</h3>
+					
+				<div class = "form-group">
+				<input id = "idContact" name = "idContact" type = "hidden">
+					<input class = "form-control form-control-sm" type="text" id="dataEdit" placeholder = "Masukkan data">
+				</div>
+				
+				<button class = "btn-primary" id = "btn-save-editContactBaru" type = "button">Save</button>
+				</div>
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-header">
+							<h3 class = "card-title">Tabel Contact Person</h3>
+						</div>
+						<div class="card-body table-responsive">
+							<table id="tableContactEdit" class="table table-striped table-bordered table-hover nowrap" style="width: 100%">
+								<thead>
+								<tr>
+									<th >Jenis Kontak</th>
+									<th >Data</th>	
+									<th>Action</th>
+								</tr>
+								</thead>
+								<tbody></tbody>
+							</table>		
+						</div>
+						<br>
+					</div>
+					<div class = "form-group">
+					<button class = "btn-primary" id = "btn-save-selesaiContactBaru" type = "button">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/customer.js}"></script>
+
+	<script>
+		tableCustomer.create();
+
+		$('#btn-cari-pasien').click(function() {
+			var tanggalLahir = new Date($('#tanggalLahir').val()) * 1;
+			tableKelolaPasien.create();
+		});
+
+		$('#btn-tambah-customer').click(function() {
+			formCustomer.resetForm();
+			tableSementara.create();
+			document.getElementById('idBiodata').value = "";
+			document.getElementById('idCustomer').value = "";
+			$('#modal-customer').modal('show')
+			autoFillDate.create();
+		});
+		
+		$('#btn-edit-tableContact').click(function(){
+			var a = $('#idButton').val();
+			tableContactEdit.setData(a);	
+			console.log(a);
+			$('#modal-customerEdit').modal()
+			$('#modal-tableEdit').modal('show');
+		})
+
+		$('#btn-save-customer').click(function() {
+			formCustomer.saveForm();
+		});
+		
+		$('#btn-save-customerEdit').click(function() {
+			formCustomerEdit.saveFormContact();
+		});
+		
+		$('#btn-save-sementaraEdit').click(function() {
+			formCustomerEdit.tambahContactBiodata();
+			tableSementaraEdit.create(getContact);
+		});
+		
+		$('#btn-save-selesaiContactBaru').click(function() {
+			
+			$('#modal-customerEdit').modal('show');
+			$('#modal-tableEdit').modal('hide');
+		});
+		
+		$('#btn-save-editContactBaru').click(function(){
+			
+			var idBawa = decodeURIComponent(document.getElementById("idContact").value);
+			var akunNama = document.getElementById("dataEdit").value;
+			
+			for (var i = getContact.length - 1; i >= 0; --i) {
+			    if (getContact[i].jenisCP == idBawa && getContact[i].accountName == currentAkunNama) {
+			        getContact.splice(i,1);
+			    }
+			}		
+			kontakBawa = {
+				jenisCP : idBawa,
+				accountName : akunNama
+			}
+			getContact.push(kontakBawa)
+			tableContactEdit.create(getContact);
+			tableSementaraEdit.create(getContact);			
+			
+		});
+		
+		
+		$.ajax({
+            url: '/api/kota/getAll',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (res, status, xhr) {
+                if (xhr.status == 200 || xhr.status == 201) {
+                	// Get select
+                    var select = document.getElementById('mySelect');
+                	
+                    // Add options
+                	for (var i in res) {
+                		$(select).append('<option value="' + res[i].kotaKab + '">' + res[i].kotaKab + '</option>');
+                	}
+                } else {
+
+                }
+            },
+            erorrr: function (err) {
+                console.log(err);
+            }
+        });
+		
+		$.ajax({
+            url: '/api/kota/getAll',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (res, status, xhr) {
+                if (xhr.status == 200 || xhr.status == 201) {
+                	// Get select
+                    var select = document.getElementById('mySelectEdit');
+                	
+                    // Add options
+                	for (var i in res) {
+                		$(select).append('<option value="' + res[i].kotaKab + '">' + res[i].kotaKab + '</option>');
+                	}
+                } else {
+
+                }
+            },
+            erorrr: function (err) {
+                console.log(err);
+            }
+        });
+		
+		$.ajax({
+            url: '/api/manbank',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (res, status, xhr) {
+                if (xhr.status == 200 || xhr.status == 201) {
+                	// Get select
+                    var select = document.getElementById('mySelectBank');
+                	
+                    // Add options
+                	for (var i in res) {
+                		$(select).append('<option value="' + res[i].idBank + '">' + res[i].namaBank + '</option>');
+                	}
+                } else {
+
+                }
+            },
+            erorrr: function (err) {
+                console.log(err);
+            }
+        });
+		
+		$.ajax({
+            url: '/api/manbank',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (res, status, xhr) {
+                if (xhr.status == 200 || xhr.status == 201) {
+                	// Get select
+                    var select = document.getElementById('mySelectBankEdit');
+                	
+                    // Add options
+                	for (var i in res) {
+                		$(select).append('<option value="' + res[i].idBank + '">' + res[i].namaBank + '</option>');
+                	}
+                } else {
+
+                }
+            },
+            erorrr: function (err) {
+                console.log(err);
+            }
+        });
+		
+	</script>
+</th:block>
+
+</html>
+
+

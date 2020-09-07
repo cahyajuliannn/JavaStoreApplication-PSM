@@ -1,0 +1,134 @@
+ <!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- =========================================================== -->
+
+      <!-- Small boxes (Stat box) -->
+      <div class="row" layout:fragment="content-header">
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+             <a href="stok"> <h3>150</h3></a>
+
+              <p>Laptop & Computer</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-laptop"></i>
+            </div>
+            <a href="laptopdankomputer" class="small-box-footer">
+              More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <a href="stok"><h3>53<sup style="font-size: 20px"></sup></h3></a>
+
+              <p>Books</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-book"></i>
+            </div>
+            <a href="buku" class="small-box-footer">
+              More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <a href="stok"><h3>44</h3></a>
+
+              <p>Sports</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bicycle"></i>
+            </div>
+            <a href="olahraga" class="small-box-footer">
+              More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+         <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <a href="stok"><h3>44</h3></a>
+
+              <p>Makanan</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bicycle"></i>
+            </div>
+            <a href="makanan" class="small-box-footer">
+              More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- =========================================================== -->
+
+<div layout:fragment="content-body">
+     <section class="content">
+     <div class="row">
+
+    <div class="col-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Books</h3>
+               </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableBuku"
+                       style="width:100%"></table>
+            </div>
+            <p id="demo"> </p>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    
+
+<!--     </div> -->
+   			<div class="col-md-7">
+        		<div class="card card-info card-outline">
+        			<img th:src="@{/assets/dist/img/books.jpeg}" class="img-fluid">
+        		</div>
+        	</div>
+
+           
+		</div>
+     </section>
+     </div>
+
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/barang.js}"></script>
+
+    <script>
+  	tableMakanan.create();
+
+        $('#btn-save-barang').click(function () {
+            formBarang.saveForm();
+        });
+
+    </script>
+</th:block>
+
+</html>
+
+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>Toko Anda | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" th:href="@{/assets/plugins/fontawesome-free/css/all.min.css}">
+    <!-- IonIcons -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" th:href="@{/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/assets/dist/css/adminlte.min.css}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page" style="background-color:lightblue;">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="../../index2.html"><b>Toko</b>Anda</a><i class ='nav-icon fas fa-shopping-cart'></i>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Log in to start your session</p>
+            <div th:if="${param.error}">
+                <p class="login-box-msg" th:text="${msg}"/>
+            </div>
+            <div th:if="${param.logout}">
+                <p class="login-box-msg" th:text="${msg}"/>
+            </div>
+            <div th:if="${param.denied}">
+                <p class="login-box-msg" th:text="${msg}"/>
+            </div>
+            <form action="perform_login" data-parsley-validate id="formLogin"
+                  method="post" role="form">
+                <div class="form-group mb-3">
+                <label for="username">Username</label>
+                    <div class="input-group input-group-alternative">
+                        <input class="form-control" name="username"
+                               placeholder="Enter your username" type="text">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                <label for="username">Password</label>
+                    <div class="input-group input-group-alternative">
+                        <input class="form-control" id="password" name="password"
+                               placeholder="Enter your password" type="password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="float: right;">
+                        			<div class="col-md-12">
+											<input type="checkbox" onclick="myFunction()">Show Password
+									</div>
+									</div>	
+                </div>
+                <!-- <div class="custom-control custom-control-alternative custom-checkbox">
+                          <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                          <label class="custom-control-label" for=" customCheckLogin">
+                            <span class="text-muted">Remember me</span>
+                          </label>
+                        </div> -->
+                <br><div class="text-center">
+                    <button class="btn btn-info btn-block btn-lg"
+                            type="submit">Log In
+                    </button>
+                </div>
+            </form>
+			<p></p>
+<!--             <div class="social-auth-links text-center mb-3"> -->
+<!--                 <p>- OR -</p> -->
+<!--                 <a class="btn btn-block btn-primary" href="#"> -->
+<!--                     <i class="fab fa-facebook mr-2"></i> Sign in using Facebook -->
+<!--                 </a> -->
+<!--                 <a class="btn btn-block btn-danger" href="#"> -->
+<!--                     <i class="fab fa-google-plus mr-2"></i> Sign in using Google+ -->
+<!--                 </a> -->
+<!--             </div> -->
+            <!-- /.social-auth-links -->
+
+<!--             <p class="mb-1"> -->
+<!--                 <a href="forgot-password.html">I forgot my password</a> -->
+<!--             </p> -->
+<!--             <p class="mb-0"> -->
+<!--                 <a class="text-center" href="register.html">Register a new membership</a> -->
+<!--             </p> -->
+            <p class="mb-0">
+			       <a href="/register" class="text-center">Don't have an account? Register here.</a>
+			</p>
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script th:src="@{/assets/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/assets/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE -->
+<script th:src="@{/assets/dist/js/adminlte.js}"></script>
+
+<script>
+function myFunction() {
+	  var x = document.getElementById("password");
+	  if (x.type === "password") {
+	    x.type = "text";
+	  } else {
+	    x.type = "password";
+	  }
+	}
+</script>
+
+</body>
+</html>

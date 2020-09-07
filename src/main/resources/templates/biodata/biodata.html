@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html layout:decorate="~{base}" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+	<div class="col-sm-6">
+		<h1 class="m-0 text-dark">Biodata</h1>
+	</div>
+	<div class="col-sm-6">
+		<ol class="breadcrumb float-sm-right">
+			<li class="breadcrumb-item"><a href="register/user">User</a></li>
+			<li class="breadcrumb-item"><a href="customer">Customer</a></li>
+		</ol>
+	</div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title">List Biodata Customer</h3>
+				<!-- <button class="float-right btn-primary" id="btn-tambah-customer">Tambah Member</button> -->
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body table-responsive">
+				<table class="table table-striped table-bordered table-hover nowrap"
+					id="tableCustomer" style="width: 100%"></table>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+	</div>
+	<!-- /.col -->
+	
+	 <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">List Biodata User</h3>
+                <!-- <button class="float-right btn-primary" id="btn-tambah-biodata">Register as User</button>  --> 
+<!--                 <button class="float-right btn-success" id="btn-login-biodata">LOG IN</button>               -->
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableBiodata"
+                       style="width:100%">
+<!--                  <button class="btn btn-danger" id="btn-delete-biodata" type="button">Delete</button> -->
+                     	
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+
+
+	<div class="modal fade" id="modal-customer">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Form customer</h4>
+					<button aria-label="Close" class="close" data-dismiss="modal"
+						type="button">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="form-customer" role="form">
+						<input name="idCustomer" type="hidden" />
+
+						<div class="form-group">
+							<label>Nama Lengkap : </label> <input class="form-control"
+								id="nama" name="namaLengkap" placeholder="Nama" required
+								type="text">
+						</div>
+						
+						<div class="form-group">
+							<label>Kota / Kabupaten</label>
+							<select class="form-control" id="mySelect" name="kotaLokasi"></select>
+						</div>
+
+						<div class="form-group">
+							<label>Alamat : </label> <input class="form-control" id="address"
+								name="alamat" placeholder="Masukkan Alamat" required
+								type="text">
+						</div>
+						
+						<div class="form-group">
+							<label>Tanggal Lahir : </label> 
+							<input class="form-control" id="birthDate"
+								name="tglLahir" required type="date">
+						</div>
+
+						<div class="form-group">
+							<label>Email : </label> 
+							<input class = "form-control" id="emailCustomer" name="email" required type="email">
+						</div>
+						
+						<div class="form-group">
+							<label>No Telepon</label>
+							<input class="form-control" id="noHandphone" name="noHandphone" required type="number">
+						</div>
+						
+						<div class="form-group">
+							<label>Tanggal Bergabung</label>
+							<input class = "form-control" id="tglMasuk" 
+								name="tglMasuk" required type ="date">
+						</div>
+						
+						<div class="form-group">
+							<label>Tanggal Expired</label>
+							<input class = "form-control" id="tglKeluar" 
+								name="tglKeluar" required type ="date">
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+					<button class="btn btn-primary" id="btn-save-customer"type="button">Save</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+</div>
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/biodata.js}"></script>
+
+	<script>
+		tableCustomer.create();
+		tableBiodata.create();
+
+		$('#btn-cari-pasien').click(function() {
+			var tanggalLahir = new Date($('#tanggalLahir').val()) * 1;
+			tableKelolaPasien.create();
+		});
+
+		$('#btn-tambah-customer').click(function() {
+			formCustomer.resetForm();
+			$('#modal-customer').modal('show')
+		});
+
+		$('#btn-save-customer').click(function() {
+			formCustomer.saveForm();
+		})
+		
+		
+		$.ajax({
+            url: '/api/kota/getAll',
+            method: 'get',
+            contentType: 'application/json',
+            success: function (res, status, xhr) {
+                if (xhr.status == 200 || xhr.status == 201) {
+                	// Get select
+                    var select = document.getElementById('mySelect');
+                	
+                    // Add options
+                	for (var i in res) {
+                		$(select).append('<option value=' + res[i].kotaKab + '>' + res[i].kotaKab + '</option>');
+                	}
+                } else {
+
+                }
+            },
+            erorrr: function (err) {
+                console.log(err);
+            }
+        });
+		
+	</script>
+</th:block>
+
+</html>
+
+

@@ -1,0 +1,213 @@
+ <!DOCTYPE html>
+<html layout:decorate="~{base3}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div class="row mb-2" layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Barang</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/barang">Barang</a></li>
+            <li class="breadcrumb-item active">index</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row" layout:fragment="content-body">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">List Barang</h3>
+                <button class="float-right btn-primary" id="btn-tambah-barang">Tambah</button>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-bordered table-hover nowrap" id="tableBarang"
+                       style="width:100%"></table>
+            </div>
+
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    
+<!-- Modal Barang SAVE/POST -->
+        <div class="modal fade" id="modal-barang">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-barang" role="form">
+                        <input name="id" type="hidden"/>
+
+                        <div class="form-group">                        
+                            <label>Nama Barang : </label>
+                            <input class="form-control" id="name" name="namaBarang"
+                                   placeholder="Nama Barang" required type="text">
+                        </div>
+                        <div class="form-group">
+                                <label>Harga Beli :</label>
+                                <input class="form-control" id="hbeli" name="hargaBeli" placeholder="Harga Beli"  required type="number"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Harga Jual : </label>
+                            <input class="form-control" id="hjual" name="hargaJual" placeholder="Harga Jual" required type="number">
+                        </div>
+                        <div class="form-group">
+                            <label>ID Distributor : </label>
+                             <select class="form-control" style="width: 100%;" id="idDist" name="distID">
+                               <option value="" selected hidden> -- Pilih Distributor -- </option>
+                             </select>									
+<!--                             <input class="form-control" id="idDist" name="distID" required type="text"> -->
+                        </div>
+                        <div class="form-group">
+                            <label>ID Kategori : </label>
+                            <select class="form-control" style="width: 100%;" id="idKate" name="idKategori">
+                               <option value="" selected hidden> -- Pilih Kategori -- </option>
+                             </select>
+<!--                             <input class="form-control" id="idKate" name="idKategori" required type="text"> -->
+                         </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-success toastrDefaultSuccess" id="btn-save-barang" type="button">Save</button>
+                 
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+<!--  Modal Barang update -->
+        <div class="modal fade" id="modal-barang2">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Barang</h4>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-barang2" role="form">
+                        <input name="id" type="hidden"/>
+
+                        <div class="form-group">                        
+                            <label>Nama Barang : </label>
+                            <input class="form-control" id="name2" name="namaBarang"
+                                   placeholder="Nama Barang" required type="text">
+                        </div>
+                        <div class="form-group">
+                                <label>Harga Beli :</label>
+                                <input class="form-control" id="hbeli2" name="hargaBeli" required type="number"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Harga Jual : </label>
+                            <input class="form-control" id="hjual2" name="hargaJual" required type="number">
+                        </div>
+                         <div class="form-group">
+                            <label>ID Distributor : </label>                            
+                             <select class="form-control select2" style="width: 100%;" id="idDist2" name="distID">
+                               <option value="" selected hidden> -- Pilih Distributor -- </option></select>
+<!--                             <input class="form-control" id="idDist2" name="distID" required type="text"> -->
+                        </div>
+                         <div class="form-group">
+                            <label>ID Kategori : </label>
+                            <select class="form-control" style="width: 100%;" id="idKate2" name="idKategori">
+                               <option value="" selected hidden> -- Pilih Kategori -- </option>
+                             </select>
+<!--                             <input class="form-control" id="idKate2" name="idKategori" required type="text"> -->
+                        </div>
+                        
+                       
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" id="btn-edit-barang" type="button">Update</button>
+                 
+                </div>
+            </div>
+<!--             /.modal-content -->
+        </div>
+<!--         /.modal-dialog -->
+    </div>   
+           
+</div>
+
+
+<th:block layout:fragment="add-scripts">
+	<script th:src="@{/assets/dist/js/barang.js}"></script>
+
+    <script>
+  	tableBarang.create();
+
+    $('#btn-save-barang').click(function () {
+        formBarang.saveForm();
+    });
+    
+//         $('#btn-cari-pasien').click(function () {
+//             var tanggalLahir = new Date($('#tanggalLahir').val()) * 1;
+//             tableKelolaPasien.create();
+//         });
+
+        $('#btn-tambah-barang').click(function () {
+            formBarang.resetForm();
+            $('#form-barang').parsley().reset();
+            $('#modal-barang').modal('show')
+        });
+
+        var idD1 = $("#idDist option:selected").attr("id");
+        populateCombo.getAllBarang();
+        var idK1 = $("#idKate option:selected").attr("id");
+        populateCombo2.getAllNamaKategori();
+        var idD2 = $("#idDist2 option:selected").attr("id");
+        populateCombo4.getAllDistributor2();
+        var idK2 = $("#idKate2 option:selected").attr("id");
+        populateCombo3.getAllNamaKategori2();
+
+//         var idCab1 = $("#selectIDalamatCabang option:selected").attr("id");
+//         populateCombo3.getAllalamatCabang();
+//         $.ajax({
+//             url: '/api/barang/,
+//             method: 'get',
+//             contentType: 'application/json',
+//             success: function (res, status, xhr) {
+//                 if (xhr.status == 200 || xhr.status == 201) {
+//                 	// Get select
+//                     var select = document.getElementById('disID');
+                	
+//                     // Add options
+//                 	for (var i in res) {
+//                 		$(select).append('<option value=' + res[i].distID + '>' + res[i].distID + '</option>');
+//                 	}
+//                 } else {
+
+//                 }
+//             },
+//             erorrr: function (err) {
+//                 console.log(err);
+//             }
+//         });
+
+    </script>
+</th:block>
+
+</html>
+
+
